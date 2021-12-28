@@ -5,9 +5,29 @@
     <title>Title</title>
 </head>
 <body>
+
+</body>
+</html>
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script src="{% static 'scripts/main.js' %}" async defer></script>
+{% endblock %}
+
+{% block container %}
     <strong>Type of Beers</strong>
     {% for i in response  %}
     {{ i.tagline }}
     {% endfor %}
-</body>
-</html>
+{% endblock %}
+
+{% block aside %}
+    <h3>Comes from home.html Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi consectetur cum eligendi harum ipsa, ipsam porro reprehenderit totam veniam voluptatibus.</h3>
+{% endblock %}
