@@ -22,17 +22,19 @@
 {% endblock %}
 
 {% block container %}
-    <h1>Type of Punk Beers</h1>
-    <br>
     {% for i in response  %}
+    <strong>Id</strong>
+    {{ i.id }}
+    <br>
+    <strong>Name</strong>
+    {{ i.name }}
+    <br>
+    <strong>Style</strong>
     {{ i.tagline }}
     <br>
+    <strong>Description</strong>
+    {{ i.description }}
     {% endfor %}
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
 {% endblock %}
 
 {% block aside %}

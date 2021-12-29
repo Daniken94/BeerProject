@@ -17,7 +17,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #996800;">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{% url "home:home" %}">
+        <a class="navbar-brand" href="{% url "home:beers_type" %}">
             <img src="{% static 'images/logo.png' %}" class="logo" alt="Logo">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -29,22 +29,6 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
-
-                {% if user.is_authenticated %}
-                    {% if not user.profile %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'user:create_profile' %}">Create Profile</a>
-                        </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'user:profile' %}">Profile</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'user:update_profile' %}">Update Profile</a>
-                        </li>
-                    {% endif %}
-                {% endif %}
-
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -86,6 +70,21 @@
         </div>
     </div>
 </div>
+
+<!-- Footer -->
+<footer class="text-center text-white fixed-bottom" style="background-color: #996800;">
+  <!-- Grid container -->
+  <div class="container p-4"></div>
+  <!-- Grid container -->
+
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    © 2020 Copyright:
+    <a class="text-white" href="https://github.com/Daniken94/">Daniken94</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
 
 
 </body>
