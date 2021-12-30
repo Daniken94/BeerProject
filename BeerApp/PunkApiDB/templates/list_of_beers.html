@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script src="{% static 'scripts/main.js' %}" async defer></script>
+{% endblock %}
+
+{% block container %}
+    <h1>Type of Punk Beers</h1>
+    <br>
+    {% for i in response  %}
+    {{ i.name }}
+    <br>
+    {% endfor %}
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="{% url 'punkapi:beers' %}">1</a></li>
+            <li class="page-item"><a class="page-link" href="{% url 'punkapi:beers_page2' %}">2</a></li>
+            <li class="page-item"><a class="page-link" href="{% url 'punkapi:beers_page3' %}">3</a></li>
+            <li class="page-item"><a class="page-link" href="{% url 'punkapi:beers_page4' %}">4</a></li>
+            <li class="page-item"><a class="page-link" href="{% url 'punkapi:beers_page5' %}">5</a></li>
+            <li class="page-item"><a class="page-link" href="{% url 'punkapi:beers_page2' %}">Next</a>
+                    <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            </li>
+          </ul>
+        </nav>
+{% endblock %}
+
+{% block aside %}
+<strong>Beers start out as an ale or a lager, and their specific styles and flavors continue to evolve from there. Under the broad ale category, there are numerous types of beer, including pale ales, India pale ales (IPA), porters, stouts, and wheat and Belgian styles. Lagers encompass a range of styles, including the pale Pilsners and German Helles and the darker American lagers. Here’s how to break down beer styles so you sound like a pro at the bar.</strong>
+{% endblock %}

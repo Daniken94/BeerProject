@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script src="{% static 'scripts/main.js' %}" async defer></script>
+{% endblock %}
+
+{% block container %}
+<h1>WELCOME BEER GEEKS</h1>
+<br>
+<a class="btn btn-primary" href="{% url 'punkapi:beers_type' %}">Punk's Beer Types</a>
+<br>
+<a class="btn btn-primary" href="{% url 'punkapi:beers' %}">Punk's Beers</a>
+<br>
+{% endblock %}

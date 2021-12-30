@@ -17,7 +17,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #996800;">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{% url "home:beers_type" %}">
+        <a class="navbar-brand" href="{% url 'punkapi:homepage' %}">
             <img src="{% static 'images/logo.png' %}" class="logo" alt="Logo">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -27,7 +27,16 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link active" aria-current="page" href="{% url 'punkapi:homepage' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'punkapi:beers' %}">Beers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'punkapi:beers_type' %}">Beer Types</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'punkapi:beers_type' %}">Calculator</a>
                 </li>
 
                 <li class="nav-item dropdown">
