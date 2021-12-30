@@ -22,14 +22,12 @@
 {% endblock %}
 
 {% block container %}
-    <h2>Beer Specification</h2>
-    <br>
     {% for i in response  %}
-    <strong>Name: </strong>
-    {{ i.name }}
+    <h2>Beer Type Specification</h2>
     <br>
-    <strong>Style: </strong>
-    {{ i.tagline }}
+    <br>
+    <h3>"{{ i.tagline }}"</h3>
+    <br>
     <br>
     <strong>First Brewed in: </strong>
     {{ i.first_brewed }}
@@ -69,10 +67,6 @@
     <br>
 
     <h2>Brewing</h2>
-    <br>
-    <strong>Brewers tips: </strong>
-    {{ i.brewers_tips }}
-    <br>
     <br>
     <br>
     <h4>Ingredients: </h4>
@@ -133,12 +127,12 @@
     <br>
     <br>
     <br>
-    {% endfor %}
+{% endfor %}
 {% endblock %}
 
 {% block aside %}
 {% for i in response %}
-    <img src="{{ i.image_url }}" class="img-fluid" alt="Responsive image">
+    <img src="{% static 'images/D5PzRji.jpg' %}" class="img-fluid" alt="Responsive image">
 <br>
 <br>
 <br>

@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import OneBeerView, list_of_beers
+from .views import OneBeerView, OneTypeView, list_of_beers
 
 app_name = 'punkapi'
 
@@ -17,4 +17,5 @@ urlpatterns = [
     path('beers/page4', views.list_of_beers_page4, name='beers_page4'),
     path('beers/page5', views.list_of_beers_page5, name='beers_page5'),
     path('beer/', OneBeerView.as_view(), name='beer'),
+    path('type/', OneTypeView.as_view(), name='type'),
 ]
