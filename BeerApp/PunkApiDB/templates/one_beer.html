@@ -34,9 +34,19 @@
     <br>
     <strong>Description</strong>
     {{ i.description }}
+    <br>
+    <br>
     {% endfor %}
 {% endblock %}
 
 {% block aside %}
-    <h3>Comes from home.html Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi consectetur cum eligendi harum ipsa, ipsam porro reprehenderit totam veniam voluptatibus.</h3>
+{% for i in response %}
+    <img src="{{ i.image_url }}" class="img-fluid" alt="Responsive image">
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+{% endfor %}
 {% endblock %}

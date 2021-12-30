@@ -1,3 +1,5 @@
+from urllib import request
+
 from django.shortcuts import render
 from django.views import View
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -42,10 +44,14 @@ def list_of_beers_type_page5(request):
     return render(request, "list_of_beers_type_page5.html", {"response": response})
 
 
-def list_of_beers(request):
-    url = 'https://api.punkapi.com/v2/beers?per_page=80'
-    response = requests.get(url).json()
-    return render(request, "list_of_beers.html", {"response": response})
+class list_of_beers(View):
+    def get(self, request):
+        url = 'https://api.punkapi.com/v2/beers?per_page=80'
+        response = requests.get(url).json()
+        return render(request, "list_of_beers.html", {"response": response})
+    def post(self):
+        pass
+
 
 
 def list_of_beers_page2(request):
@@ -74,9 +80,14 @@ def list_of_beers_page5(request):
 
 class OneBeerView(View):
     def get(self, request):
+        beer_name = 'Buzz'
+        url = f"https://api.punkapi.com/v2/beers?beer_name={beer_name}"
+        response = requests.get(url).json()
+
+        return render(request, "one_beer.html", {"response": response})
+
+    def post(self, request):
         pass
-
-
 
 
 def one_beer(request):
