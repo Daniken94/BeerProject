@@ -23,6 +23,7 @@ from BeerApp import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("PunkApiDB.urls")),
+    path('calculator/', include("CalculatorApp.urls")),
 ]
 
 # urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
