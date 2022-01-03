@@ -22,6 +22,7 @@ class Beer(models.Model):
     def __str__(self):
         return f"{self.name}"
 
+    # usunąc null=True w textfield
 
 class BoilVolume(models.Model):
     boil_choices = (
@@ -111,6 +112,8 @@ class Ingredients(models.Model):
     purpose = models.IntegerField(choices=purpose_choices, blank=True, null=True)
     aac = models.IntegerField(blank=True, verbose_name="Alfa acid", null=True)
     country = models.CharField(max_length=120, blank=True, null=True)
+
+    # description null true usunąć, country usunąc null
 
     class Meta:
         verbose_name_plural = "Ingredients"

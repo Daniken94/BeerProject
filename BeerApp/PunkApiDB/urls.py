@@ -16,6 +16,6 @@ urlpatterns = [
     path('beers/page3', views.list_of_beers_page3, name='beers_page3'),
     path('beers/page4', views.list_of_beers_page4, name='beers_page4'),
     path('beers/page5', views.list_of_beers_page5, name='beers_page5'),
-    path('beer/', OneBeerView.as_view(), name='beer'),
-    path('type/', OneTypeView.as_view(), name='type'),
+    path('beer/<int:id>/', OneBeerView.as_view(), name='beer'),
+    path('type/<int:id>/', OneTypeView.as_view(), name='type'),
 ]

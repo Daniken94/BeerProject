@@ -80,25 +80,18 @@ def list_of_beers_page5(request):
 
 class OneBeerView(View):
     def get(self, request, *args, **kwargs):
-        beer_name = 'Punk IPA 2010 - Current'
-        # beer_name = 'Libertine Porter'
-        url = f"https://api.punkapi.com/v2/beers?beer_name={beer_name}"
+        id = kwargs['id']
+        url = f"https://api.punkapi.com/v2/beers/{id}"
         response = requests.get(url).json()
         return render(request, "one_beer.html", {"response": response})
 
-    def post(self, request):
-        pass
-
 
 class OneTypeView(View):
-    def get(self, request):
-        type_name = 1
-        url = f"https://api.punkapi.com/v2/beers/{type_name}"
+    def get(self, request, *args, **kwargs):
+        id = kwargs['id']
+        url = f"https://api.punkapi.com/v2/beers/{id}"
         response = requests.get(url).json()
         return render(request, "one_type.html", {"response": response})
-
-    def post(self, request):
-        pass
 
 
 def one_beer(request):
