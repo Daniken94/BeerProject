@@ -22,7 +22,7 @@
 {% endblock %}
 
 {% block container %}
-    <h1>Type of Punk Beers</h1>
+    <h1>Punk Beers's</h1>
     <br>
     {% for i in response  %}
     <li class="page-item"><a class="page-link" href="{% url 'punkapi:beer' i.id %}">{{ i.name }}</a></li>

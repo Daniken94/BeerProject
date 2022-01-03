@@ -15,7 +15,7 @@ def homepage(request):
 
 
 def list_of_beers_type(request):
-    url = 'https://api.punkapi.com/v2/beers?per_page=80'
+    url = 'https://api.punkapi.com/v2/beers?page=1&per_page=80'
     response = requests.get(url).json()
     return render(request, "list_of_beers_type.html", {"response": response})
 
@@ -49,9 +49,6 @@ class list_of_beers(View):
         url = 'https://api.punkapi.com/v2/beers?per_page=80'
         response = requests.get(url).json()
         return render(request, "list_of_beers.html", {"response": response})
-    def post(self):
-        pass
-
 
 
 def list_of_beers_page2(request):
@@ -94,17 +91,3 @@ class OneTypeView(View):
         return render(request, "one_type.html", {"response": response})
 
 
-def one_beer(request):
-    id = 1
-    url = f"https://api.punkapi.com/v2/beers/{id}"
-
-    response = requests.get(url).json()
-
-    beer_info = {
-        'name': response[0],
-        'tagline': response[0],
-    }
-
-    print(beer_info)
-
-    return render(request, "list_of_beers_type.html", {"response": response})
