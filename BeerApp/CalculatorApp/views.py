@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import View
-from .models import BeerProject, Beer, Ingredients
+from .models import BeerProject, Beer, Ingredients, BoilVolume, Method, MashTemp, Fermentation, BeerImage
 
 
 class BeerProjectListView(View):
@@ -17,12 +17,17 @@ class BeerProjectView(View):
 
         beer = Beer.objects.get(pk=id)
         project = BeerProject.objects.get(pk=id)
-        ingredients_malt = Ingredients.objects.filter(beer_id=id, type=1)
+        ingredients_malt = Ingredients.objects.filter(beer_id=id, type=1).order_by('sequence')
         ingredients_hop = Ingredients.objects.filter(beer_id=id, type=2)
         ingredients_yeast = Ingredients.objects.filter(beer_id=id, type=3)
-        og = Beer.objects.get(pk=id)
-        fg = Beer.objects.get(pk=id)
-        abv = Beer.objects.get(pk=id)
+
+        boil_volume = BoilVolume.objects.filter(beer_id=id)
+        method = Method.objects.all()
+        mash_temp = MashTemp.objects.filter(beer_id=id)
+        fermentation = Fermentation.objects.filter(beer_id=id)
+        image = BeerImage.objects.get(beer_id=id)
+        print(image)
         return render(request, "one_project.html",
                       {'beer': beer, 'project': project, 'ing_malt': ingredients_malt, 'ing_hop': ingredients_hop,
-                       'ing_yeast': ingredients_yeast, "og": og, "fg": fg, "abv": abv})
+                       'ing_yeast': ingredients_yeast, "boil": boil_volume,
+                       'method': method, "fermentation": fermentation, "mash_temp": mash_temp, 'image': image})

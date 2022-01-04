@@ -48,6 +48,7 @@
           <th scope="col">EBC</th>
           <th scope="col">PH</th>
           <th scope="col">Attenuation level</th>
+          <th scope="col">Beer volume</th>
         </tr>
       </thead>
       <tbody>
@@ -59,6 +60,7 @@
           <td>{{ beer.ebc }}</td>
           <td>{{ beer.ph }}</td>
           <td>{{ beer.attenuation_level }} %</td>
+          <td>{{ beer.beer_volume }} {{ beer.unit }}</td>
         </tr>
       </tbody>
     </table>
@@ -69,12 +71,14 @@
     <h4>Ingredients: </h4>
     <strong>Malt: </strong> <br>
 <table class="table">
-      <caption>PARAMETERS</caption>
+      <caption>Malt Parameters</caption>
       <thead>
         <tr>
           <th scope="col">Name</th>
           <th scope="col">Value</th>
           <th scope="col">Unit</th>
+          <th scope="col">Sequence</th>
+          <th scope="col">Sequence Time</th>
           <th scope="col">EBC</th>
           <th scope="col">Description</th>
         </tr>
@@ -85,6 +89,8 @@
           <td>{{ i.name }}</td>
           <td>{{ i.value }}</td>
           <td>{{ i.unit }}</td>
+          <td>{{ i.sequence }}</td>
+          <td>{{ i.sequence_unit }}</td>
           <td>{{ i.ebc }}</td>
           <td>{{ i.description }}</td>
         </tr>
@@ -93,48 +99,122 @@
     </table>
 
 
-    <br>
-    <strong>Hops: </strong>
-    <br>
-        {% for v in i.ingredients.hops %}
-            {{ v.name }}:
-            {{ v.amount.value }}
-            {{ v.amount.unit }},
-            {{ v.add }},
-            {{ v.attribute }}.
-            <hr>
-        {% endfor %}
-    <strong>Yeast: </strong>
-    <br>
-    {{ i.ingredients.yeast }}
-    <br>
-    <br>
-    <strong>Beer volume: </strong>
-    <br>
-    {{ i.volume.value }}
-    {{ i.volume.unit }}
-    <br>
+<strong>Hops: </strong> <br>
+<table class="table">
+      <caption>Hops Parameters</caption>
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Value</th>
+          <th scope="col">Unit</th>
+          <th scope="col">Sequence</th>
+          <th scope="col">Sequence Time</th>
+          <th scope="col">Purpose</th>
+          <th scope="col">Alfa Acid</th>
+          <th scope="col">Country</th>
+        </tr>
+      </thead>
+    {% for i in ing_hop %}
+      <tbody>
+        <tr>
+          <td>{{ i.name }}</td>
+          <td>{{ i.value }}</td>
+          <td>{{ i.unit }}</td>
+          <td>{{ i.sequence }}</td>
+          <td>{{ i.sequence_unit }}</td>
+          <td>{{ i.purpose }}</td>
+          <td>{{ i.aac }}</td>
+          <td>{{ i.country }}</td>
+        </tr>
+      </tbody>
+    {% endfor %}
+    </table>
+
+
+<strong>Yeast: </strong> <br>
+<table class="table">
+      <caption>Yeast Parameters</caption>
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Value</th>
+          <th scope="col">Unit</th>
+          <th scope="col">Description</th>
+
+        </tr>
+      </thead>
+    {% for i in ing_yeast %}
+      <tbody>
+        <tr>
+          <td>{{ i.name }}</td>
+          <td>{{ i.value }}</td>
+          <td>{{ i.unit }}</td>
+          <td>{{ i.description }}</td>
+        </tr>
+      </tbody>
+    {% endfor %}
+</table>
+
     <br>
     <strong>Water boil volume: </strong>
     <br>
-    {{ i.boil_volume.value }}
-    {{ i.boil_volume.unit }}
+    {% for i in boil %}
+    {{ i.value }}
+    {{ i.unit }} of
+    {{ i.substance }}
+    {% endfor %}
     <br>
     <br>
-    <strong>Method: </strong>
-    <br>
-        {% for v in i.method.mash_temp %}
-            {{ v.temp.value }}
-            {{ v.temp.unit }} <br>
-            Duration:
-            {{ v.duration }} min
-            <hr>
-        {% endfor %}
-    <strong>Fermentation: </strong>
-    <br>
-    {{ i.method.fermentation.temp.value }}
-    {{ i.method.fermentation.temp.unit }} <br>
-    Duration: min 21 days
+
+<strong>Method: </strong> <br>
+<table class="table">
+      <caption>Mash Parameters</caption>
+      <thead>
+        <tr>
+          <th scope="col">Temperature</th>
+          <th scope="col">Unit</th>
+          <th scope="col">Sequence</th>
+          <th scope="col">Duration</th>
+
+        </tr>
+      </thead>
+    {% for i in mash_temp %}
+      <tbody>
+        <tr>
+          <td>{{ i.value_temperature }}</td>
+          <td>{{ i.unit }}</td>
+          <td>{{ i.sequence }}</td>
+          <td>{{ i.duration }} min </td>
+        </tr>
+      </tbody>
+    {% endfor %}
+</table>
+
+
+
+<strong>Fermentation: </strong> <br>
+<table class="table">
+      <caption>Fermentation Parameters</caption>
+      <thead>
+        <tr>
+          <th scope="col">Temperature</th>
+          <th scope="col">Unit</th>
+          <th scope="col">Sequence</th>
+          <th scope="col">Duration</th>
+
+        </tr>
+      </thead>
+    {% for i in fermentation %}
+      <tbody>
+        <tr>
+          <td>{{ i.value_temperature }}</td>
+          <td>{{ i.unit }}</td>
+          <td>{{ i.sequence }}</td>
+          <td>{{ i.duration }} days </td>
+        </tr>
+      </tbody>
+    {% endfor %}
+</table>
     <br>
     <br>
     <br>
