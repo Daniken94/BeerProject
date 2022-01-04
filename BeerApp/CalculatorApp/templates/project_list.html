@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script src="{% static 'scripts/main.js' %}" async defer></script>
+{% endblock %}
+
+{% block container %}
+    <h1>My Beer Projects</h1>
+    <br>
+    {% for i in beer  %}
+    <li class="page-item"><a class="page-link" href="{% url 'calculator:project' i.id %}">{{ i.name }}</a></li>
+    <br>
+    {% endfor %}
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+{% endblock %}
+
+{% block aside %}
+{% endblock %}

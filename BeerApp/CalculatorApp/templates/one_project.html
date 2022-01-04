@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script src="{% static 'scripts/main.js' %}" async defer></script>
+{% endblock %}
+
+{% block container %}
+    <h2>Beer Specification</h2>
+    <br>
+    <strong>Name: </strong>
+    {{ beer.name }}
+    <br>
+    <strong>Style: </strong>
+    {{ beer.tagline }}
+    <br>
+    <strong>First Brewed in: </strong>
+    {{ project.created_date }}
+    <br>
+    <strong>Description: </strong>
+    {{ beer.description }}
+    <br>
+    <br>
+    <table class="table">
+      <caption>PARAMETERS</caption>
+      <thead>
+        <tr>
+          <th scope="col">BLG Start</th>
+          <th scope="col">BLG Finish</th>
+          <th scope="col">ABV</th>
+          <th scope="col">IBU</th>
+          <th scope="col">EBC</th>
+          <th scope="col">PH</th>
+          <th scope="col">Attenuation level</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ beer.og }}</td>
+          <td>{{ beer.fg }}</td>
+          <td>{{ beer.abv }}</td>
+          <td>{{ beer.ibu }}</td>
+          <td>{{ beer.ebc }}</td>
+          <td>{{ beer.ph }}</td>
+          <td>{{ beer.attenuation_level }} %</td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+
+    <h2>Brewing</h2>
+    <br>
+    <h4>Ingredients: </h4>
+    <strong>Malt: </strong> <br>
+<table class="table">
+      <caption>PARAMETERS</caption>
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Value</th>
+          <th scope="col">Unit</th>
+          <th scope="col">EBC</th>
+          <th scope="col">Description</th>
+        </tr>
+      </thead>
+    {% for i in ing_malt %}
+      <tbody>
+        <tr>
+          <td>{{ i.name }}</td>
+          <td>{{ i.value }}</td>
+          <td>{{ i.unit }}</td>
+          <td>{{ i.ebc }}</td>
+          <td>{{ i.description }}</td>
+        </tr>
+      </tbody>
+    {% endfor %}
+    </table>
+
+
+    <br>
+    <strong>Hops: </strong>
+    <br>
+        {% for v in i.ingredients.hops %}
+            {{ v.name }}:
+            {{ v.amount.value }}
+            {{ v.amount.unit }},
+            {{ v.add }},
+            {{ v.attribute }}.
+            <hr>
+        {% endfor %}
+    <strong>Yeast: </strong>
+    <br>
+    {{ i.ingredients.yeast }}
+    <br>
+    <br>
+    <strong>Beer volume: </strong>
+    <br>
+    {{ i.volume.value }}
+    {{ i.volume.unit }}
+    <br>
+    <br>
+    <strong>Water boil volume: </strong>
+    <br>
+    {{ i.boil_volume.value }}
+    {{ i.boil_volume.unit }}
+    <br>
+    <br>
+    <strong>Method: </strong>
+    <br>
+        {% for v in i.method.mash_temp %}
+            {{ v.temp.value }}
+            {{ v.temp.unit }} <br>
+            Duration:
+            {{ v.duration }} min
+            <hr>
+        {% endfor %}
+    <strong>Fermentation: </strong>
+    <br>
+    {{ i.method.fermentation.temp.value }}
+    {{ i.method.fermentation.temp.unit }} <br>
+    Duration: min 21 days
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+{% endblock %}
+
+{% block aside %}
+{% for i in response %}
+    <img src="{{ i.image_url }}" class="img-fluid" alt="Responsive image">
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+{% endfor %}
+{% endblock %}
