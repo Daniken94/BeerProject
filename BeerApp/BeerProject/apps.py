@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class CalculatorappConfig(AppConfig):
+class BeerprojectConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'CalculatorApp'
+    name = 'BeerProject'

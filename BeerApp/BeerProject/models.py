@@ -16,7 +16,7 @@ class Beer(models.Model):
     ebc = models.IntegerField(blank=True, null=True)
     ph = models.IntegerField(blank=True, null=True)
     attenuation_level = models.FloatField(blank=True, null=True)
-    beer_volume = models.IntegerField()
+    beer_volume = models.FloatField()
     unit = models.CharField(max_length=50, choices=BEER_CHOICES)
 
     def __str__(self):
@@ -37,7 +37,7 @@ class BoilVolume(models.Model):
 
 
 class BeerImage(models.Model):
-    image = models.ImageField(upload_to="product_images")
+    image = models.ImageField(upload_to="product_images", null=True)
     beer = models.ForeignKey("Beer", on_delete=models.CASCADE, blank=True)
 
     def __str__(self):
@@ -101,7 +101,6 @@ class Fermentation(models.Model):
         return f"{self.value_temperature} {self.get_unit_display()} for {self.duration} days"
 
 
-
 class Ingredients(models.Model):
     type_choices = (
         (1, 'malt'),
@@ -114,6 +113,7 @@ class Ingredients(models.Model):
         ('litres', 'litres'),
         ("kilograms", "kilograms"),
         ("grams", "grams"),
+        ("item", "item"),
     )
 
     purpose_choices = (
@@ -146,14 +146,14 @@ class Ingredients(models.Model):
     aac = models.IntegerField(blank=True, verbose_name="Alfa acid", null=True)
     country = models.CharField(max_length=120, blank=True)
     sequence = models.IntegerField(choices=sequence_choices)
-    sequence_unit = models.CharField(max_length=120)
+    sequence_unit = models.CharField(default="", max_length=120, verbose_name="W której minucie dodać składnik")
     beer = models.ForeignKey("Beer", on_delete=models.CASCADE, blank=True)
 
     class Meta:
         verbose_name_plural = "Ingredients"
 
     def __str__(self):
-        return f"{self.name} {self.get_type_display()} {self.get_unit_display()} {self.get_purpose_display()}"
+        return f"{self.name} {self.get_type_display()} {self.get_unit_display()} {self.get_purpose_display()} {self.beer}"
 
 
 class BeerProject(models.Model):

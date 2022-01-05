@@ -7,26 +7,26 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('CalculatorApp', '0004_ingredients_beer'),
+        ('BeerProject', '0004_ingredients_beer'),
     ]
 
     operations = [
         migrations.AddField(
             model_name='beerimage',
             name='beer',
-            field=models.ForeignKey(blank=True, default=1, on_delete=django.db.models.deletion.CASCADE, to='CalculatorApp.beer'),
+            field=models.ForeignKey(blank=True, default=1, on_delete=django.db.models.deletion.CASCADE, to='BeerProject.beer'),
             preserve_default=False,
         ),
         migrations.AddField(
             model_name='boilvolume',
             name='beer',
-            field=models.ForeignKey(blank=True, default=1, on_delete=django.db.models.deletion.CASCADE, to='CalculatorApp.beer'),
+            field=models.ForeignKey(blank=True, default=1, on_delete=django.db.models.deletion.CASCADE, to='BeerProject.beer'),
             preserve_default=False,
         ),
         migrations.AddField(
             model_name='method',
             name='beer',
-            field=models.ForeignKey(blank=True, default=1, on_delete=django.db.models.deletion.CASCADE, to='CalculatorApp.beer'),
+            field=models.ForeignKey(blank=True, default=1, on_delete=django.db.models.deletion.CASCADE, to='BeerProject.beer'),
             preserve_default=False,
         ),
     ]

@@ -7,20 +7,20 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('CalculatorApp', '0012_ingredients_sequence_unit'),
+        ('BeerProject', '0012_ingredients_sequence_unit'),
     ]
 
     operations = [
         migrations.AddField(
             model_name='fermentation',
             name='beer',
-            field=models.ForeignKey(blank=True, default=1, on_delete=django.db.models.deletion.CASCADE, to='CalculatorApp.beer'),
+            field=models.ForeignKey(blank=True, default=1, on_delete=django.db.models.deletion.CASCADE, to='BeerProject.beer'),
             preserve_default=False,
         ),
         migrations.AddField(
             model_name='mashtemp',
             name='beer',
-            field=models.ForeignKey(blank=True, default=1, on_delete=django.db.models.deletion.CASCADE, to='CalculatorApp.beer'),
+            field=models.ForeignKey(blank=True, default=1, on_delete=django.db.models.deletion.CASCADE, to='BeerProject.beer'),
             preserve_default=False,
         ),
     ]

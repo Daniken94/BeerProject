@@ -75,8 +75,8 @@ class Migration(migrations.Migration):
             name='Method',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('fermentation', models.ManyToManyField(to='CalculatorApp.Fermentation')),
-                ('mash_temp', models.ManyToManyField(to='CalculatorApp.MashTemp')),
+                ('fermentation', models.ManyToManyField(to='BeerProject.Fermentation')),
+                ('mash_temp', models.ManyToManyField(to='BeerProject.MashTemp')),
             ],
         ),
         migrations.CreateModel(
@@ -86,7 +86,7 @@ class Migration(migrations.Migration):
                 ('value', models.IntegerField()),
                 ('unit', models.IntegerField(choices=[(1, 'litres')])),
                 ('substance', models.CharField(max_length=120)),
-                ('beer', models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE, to='CalculatorApp.beer')),
+                ('beer', models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE, to='BeerProject.beer')),
             ],
         ),
         migrations.CreateModel(
@@ -95,11 +95,11 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created_date', models.DateField(auto_now_add=True, verbose_name='created at')),
                 ('updated_date', models.DateField(auto_now=True, verbose_name='last updated')),
-                ('beer', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='CalculatorApp.beer', verbose_name='Choose beer')),
-                ('beer_image', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='CalculatorApp.beerimage', verbose_name='Choose image')),
-                ('boil_volume', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='CalculatorApp.boilvolume')),
-                ('ingredients', models.ManyToManyField(to='CalculatorApp.Ingredients', verbose_name='Ingredients')),
-                ('method', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='CalculatorApp.method', verbose_name='Choose mash method')),
+                ('beer', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='BeerProject.beer', verbose_name='Choose beer')),
+                ('beer_image', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='BeerProject.beerimage', verbose_name='Choose image')),
+                ('boil_volume', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='BeerProject.boilvolume')),
+                ('ingredients', models.ManyToManyField(to='BeerProject.Ingredients', verbose_name='Ingredients')),
+                ('method', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='BeerProject.method', verbose_name='Choose mash method')),
             ],
         ),
     ]

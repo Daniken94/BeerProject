@@ -7,14 +7,14 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('CalculatorApp', '0003_rename_beer_value_beer_beer_volume'),
+        ('BeerProject', '0003_rename_beer_value_beer_beer_volume'),
     ]
 
     operations = [
         migrations.AddField(
             model_name='ingredients',
             name='beer',
-            field=models.ForeignKey(blank=True, default=1, on_delete=django.db.models.deletion.CASCADE, to='CalculatorApp.beer'),
+            field=models.ForeignKey(blank=True, default=1, on_delete=django.db.models.deletion.CASCADE, to='BeerProject.beer'),
             preserve_default=False,
         ),
     ]

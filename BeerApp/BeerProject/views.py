@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views import View
 from .models import BeerProject, Beer, Ingredients, BoilVolume, Method, MashTemp, Fermentation, BeerImage
+from .forms import BeerImageForm
 
 
 class BeerProjectListView(View):
@@ -17,9 +18,11 @@ class BeerProjectView(View):
 
         beer = Beer.objects.get(pk=id)
         project = BeerProject.objects.get(pk=id)
+
         ingredients_malt = Ingredients.objects.filter(beer_id=id, type=1).order_by('sequence')
-        ingredients_hop = Ingredients.objects.filter(beer_id=id, type=2)
-        ingredients_yeast = Ingredients.objects.filter(beer_id=id, type=3)
+        ingredients_hop = Ingredients.objects.filter(beer_id=id, type=2).order_by('sequence')
+        ingredients_yeast = Ingredients.objects.filter(beer_id=id, type=3).order_by('sequence')
+        ingredients_other = Ingredients.objects.filter(beer_id=id, type=4).order_by('sequence')
 
         boil_volume = BoilVolume.objects.filter(beer_id=id)
         method = Method.objects.all()
@@ -29,5 +32,10 @@ class BeerProjectView(View):
         print(image)
         return render(request, "one_project.html",
                       {'beer': beer, 'project': project, 'ing_malt': ingredients_malt, 'ing_hop': ingredients_hop,
-                       'ing_yeast': ingredients_yeast, "boil": boil_volume,
+                       'ing_yeast': ingredients_yeast, 'ing_other': ingredients_other, "boil": boil_volume,
                        'method': method, "fermentation": fermentation, "mash_temp": mash_temp, 'image': image})
+
+
+def index(request):
+    form = BeerImageForm()
+    return render(request, 'base.html', {"form": form})
