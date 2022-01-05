@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import View
 from .models import BeerProject, Beer, Ingredients, BoilVolume, Method, MashTemp, Fermentation, BeerImage
-from .forms import BeerImageForm
+from .forms import BeerImageForm, AddBeerForm
 
 
 class BeerProjectListView(View):
@@ -36,6 +36,23 @@ class BeerProjectView(View):
                        'method': method, "fermentation": fermentation, "mash_temp": mash_temp, 'image': image})
 
 
-def index(request):
-    form = BeerImageForm()
-    return render(request, 'base.html', {"form": form})
+
+
+def beer_add_view(request):
+    form = AddBeerForm()
+
+    if request.method == 'POST':
+        form = AddBeerForm(request.POST)
+        if form.is_valid():
+            form.save()
+    return render(request, "add_new_project.html", {'form': form})
+
+
+# def beer_add_view(request):
+#     if request.method == 'POST':
+#         form = AddBeerForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#
+#     form = AddBeerForm()
+#     return render(request, "add_new_project.html", {'form': form})
