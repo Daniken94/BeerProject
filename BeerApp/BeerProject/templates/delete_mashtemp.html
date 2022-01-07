@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script src="{% static 'scripts/main.js' %}" async defer></script>
+{% endblock %}
+
+{% block container %}
+
+<p>Are you sure to delete "{{ item }}"?</p>
+
+<form action="{% url 'beerproject:delete_mashtemp' item.id %}" method="POST">
+    {% csrf_token %}
+
+    <a class="btn btn-warning" href="{% url 'beerproject:project_list' %}">Cancel</a>
+    <button type="submit" class="btn btn-danger">Confirm</button>
+</form>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+{% endblock %}
+
+{% block aside %}
+
+{% endblock %}

@@ -22,7 +22,14 @@
 {% endblock %}
 
 {% block container %}
-    <h2>Beer Specification</h2>
+<tr>
+    <td><h2>Beer Specification</h2></td>
+    <td><a class="btn btn-sm btn-success" href="{% url 'beerproject:new_project_beer' %}">Add new beer project</a></td>
+    <td><a class="btn btn-sm btn-success" href="{% url 'beerproject:new_project' %}">Add new components</a></td>
+    <td><a class="btn btn-sm btn-warning" href="{% url 'beerproject:update_project_beer' beer.id %}">Update</a></td>
+    <td><a class="btn btn-sm btn-danger" href="{% url 'beerproject:delete_project_beer' beer.id %}">Delete</a></td>
+    <br>
+</tr>
     <br>
     <strong>Name: </strong>
     {{ beer.name }}
@@ -71,7 +78,36 @@
 
     <h2>Brewing</h2>
     <br>
-    <h4>Ingredients: </h4>
+
+
+    <strong>Water boil volume: </strong>
+<table class="table">
+      <caption>Malt Parameters</caption>
+      <thead>
+        <tr>
+          <th scope="col">Value</th>
+          <th scope="col">Unit</th>
+          <th scope="col">Substance</th>
+        </tr>
+      </thead>
+    {% for i in boil %}
+      <tbody>
+        <tr>
+          <td>{{ i.value }}</td>
+          <td>{{ i.unit }}</td>
+          <td>{{ i.substance }}</td>
+          <td><a class="btn btn-sm btn-warning" href="{% url 'beerproject:update_boil' i.id %}">Update</a></td>
+          <td><a class="btn btn-sm btn-danger" href="{% url 'beerproject:delete_boil' i.id %}">Delete</a></td>
+        </tr>
+      </tbody>
+    {% endfor %}
+    </table>
+
+
+    <br>
+    <br>
+    <br>
+    <h4>Ingredients: </h4> <br>
     <strong>Malt: </strong> <br>
 <table class="table">
       <caption>Malt Parameters</caption>
@@ -96,13 +132,15 @@
           <td>{{ i.sequence_unit }}</td>
           <td>{{ i.ebc }}</td>
           <td>{{ i.description }}</td>
+          <td><a class="btn btn-sm btn-warning" href="{% url 'beerproject:update_ingredient' i.id %}">Update</a></td>
+          <td><a class="btn btn-sm btn-danger" href="{% url 'beerproject:delete_ingredient' i.id %}">Delete</a></td>
         </tr>
       </tbody>
     {% endfor %}
     </table>
 
 
-<strong>Hops: </strong> <br>
+<strong>Hops: </strong>
 <table class="table">
       <caption>Hops Parameters</caption>
       <thead>
@@ -129,6 +167,8 @@
           <td>{{ i.purpose }}</td>
           <td>{{ i.aac }}</td>
           <td>{{ i.country }}</td>
+          <td><a class="btn btn-sm btn-warning" href="{% url 'beerproject:update_ingredient' i.id %}">Update</a></td>
+          <td><a class="btn btn-sm btn-danger" href="{% url 'beerproject:delete_ingredient' i.id %}">Delete</a></td>
         </tr>
       </tbody>
     {% endfor %}
@@ -155,12 +195,14 @@
           <td>{{ i.unit }}</td>
           <td>{{ i.sequence }}</td>
           <td>{{ i.sequence_unit }}</td>
+          <td><a class="btn btn-sm btn-warning" href="{% url 'beerproject:update_ingredient' i.id %}">Update</a></td>
+          <td><a class="btn btn-sm btn-danger" href="{% url 'beerproject:delete_ingredient' i.id %}">Delete</a></td>
         </tr>
       </tbody>
     {% endfor %}
     </table>
 
-
+<br>
 
 <strong>Yeast: </strong> <br>
 <table class="table">
@@ -181,23 +223,19 @@
           <td>{{ i.value }}</td>
           <td>{{ i.unit }}</td>
           <td>{{ i.description }}</td>
+          <td><a class="btn btn-sm btn-warning" href="{% url 'beerproject:update_ingredient' i.id %}">Update</a></td>
+          <td><a class="btn btn-sm btn-danger" href="{% url 'beerproject:delete_ingredient' i.id %}">Delete</a></td>
         </tr>
       </tbody>
     {% endfor %}
 </table>
+<br>
+<br>
+<br>
 
-    <br>
-    <strong>Water boil volume: </strong>
-    <br>
-    {% for i in boil %}
-    {{ i.value }}
-    {{ i.unit }} of
-    {{ i.substance }}
-    {% endfor %}
-    <br>
-    <br>
+<h4>Method: </h4> <br>
 
-<strong>Method: </strong> <br>
+<strong>Mash Temp: </strong> <br>
 <table class="table">
       <caption>Mash Parameters</caption>
       <thead>
@@ -216,6 +254,8 @@
           <td>{{ i.unit }}</td>
           <td>{{ i.sequence }}</td>
           <td>{{ i.duration }} min </td>
+          <td><a class="btn btn-sm btn-warning" href="{% url 'beerproject:update_mashtemp' i.id %}">Update</a></td>
+          <td><a class="btn btn-sm btn-danger" href="{% url 'beerproject:delete_mashtemp' i.id %}">Delete</a></td>
         </tr>
       </tbody>
     {% endfor %}
@@ -242,6 +282,8 @@
           <td>{{ i.unit }}</td>
           <td>{{ i.sequence }}</td>
           <td>{{ i.duration }} days </td>
+          <td><a class="btn btn-sm btn-warning" href="{% url 'beerproject:update_fermentation' i.id %}">Update</a></td>
+          <td><a class="btn btn-sm btn-danger" href="{% url 'beerproject:delete_fermentation' i.id %}">Delete</a></td>
         </tr>
       </tbody>
     {% endfor %}

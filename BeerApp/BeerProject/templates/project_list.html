@@ -22,13 +22,11 @@
 {% endblock %}
 
 {% block container %}
-<div class="row border-bottom border-3 p-1 m-1">
-    <div class="col noPadding"><h2 class="color-header text-uppercase">My Beer Projects</h2></div>
-        <div class="col noPadding d-flex justify-content-end mb-2"><a href="{% url 'beerproject:new_project_beer' %}"
-            class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Add new beer project</a></div>
-    <div class="col noPadding d-flex justify-content-end mb-2"><a href="{% url 'beerproject:new_project' %}"
-            class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Add new components</a></div>
-</div>
+<tr>
+    <td><h1>My Beer Projects</h1></td>
+    <td><a class="btn btn-sm btn-success" href="{% url 'beerproject:new_project_beer' %}">Add new beer project</a></td>
+    <td><a class="btn btn-sm btn-success" href="{% url 'beerproject:new_project' %}">Add new components</a></td>
+</tr>
 
     <br>
 
@@ -37,8 +35,8 @@
 <tr>
     <td><strong>{{ i.name }}</strong></td>
     <td><a class="btn btn-sm btn-info" href="{% url 'beerproject:project' i.id %}">Details</a></td>
-    <td><a class="btn btn-sm btn-info" href="{% url 'beerproject:update_project_beer' i.id %}">Update</a></td>
-    <td><a class="btn btn-sm btn-info" href="{% url 'beerproject:project' i.id %}">Delete</a></td>
+    <td><a class="btn btn-sm btn-warning" href="{% url 'beerproject:update_project_beer' i.id %}">Update</a></td>
+    <td><a class="btn btn-sm btn-danger" href="{% url 'beerproject:delete_project_beer' i.id %}">Delete</a></td>
     <br>
 </tr>
     {% endfor %}
