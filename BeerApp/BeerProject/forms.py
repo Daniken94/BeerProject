@@ -3,14 +3,8 @@ from django.forms import ModelForm
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout
 
-from .models import BeerImage, Beer
+from .models import BeerImage, Beer, Ingredients, MashTemp, Fermentation
 from . import models
-
-
-class BeerImageForm(ModelForm):
-    class Meta:
-        model = BeerImage
-        fields = ("image",)
 
 
 class AddBeerForm(ModelForm):
@@ -27,3 +21,27 @@ class AddBeerForm(ModelForm):
                 "__all__",
                 Submit('submit', 'Submit')
             )
+
+
+class AddBeerImageForm(ModelForm):
+    class Meta:
+        model = BeerImage
+        fields = "__all__"
+
+
+class AddBeerIngredientsForm(ModelForm):
+    class Meta:
+        model = Ingredients
+        fields = "__all__"
+
+
+class AddBeerMashTempForm(ModelForm):
+    class Meta:
+        model = MashTemp
+        fields = "__all__"
+
+
+class AddBeerFermentationForm(ModelForm):
+    class Meta:
+        model = Fermentation
+        fields = "__all__"

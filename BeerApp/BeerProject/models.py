@@ -18,6 +18,9 @@ class Beer(models.Model):
     attenuation_level = models.FloatField(blank=True, null=True)
     beer_volume = models.FloatField()
     unit = models.CharField(max_length=50, choices=BEER_CHOICES)
+    created_date = models.DateField(auto_now_add=True, verbose_name="created at", blank=True)
+    updated_date = models.DateField(auto_now=True, verbose_name='last updated', blank=True)
+    preparation_time = models.IntegerField(verbose_name="Full time for beer project")
 
     def __str__(self):
         return f"{self.name}"
@@ -42,12 +45,6 @@ class BeerImage(models.Model):
 
     def __str__(self):
         return f"{self.image}"
-
-
-class Method(models.Model):
-    mash_temp = models.ManyToManyField("MashTemp")
-    fermentation = models.ManyToManyField("Fermentation")
-    beer = models.ForeignKey("Beer", on_delete=models.CASCADE, blank=True)
 
 
 class MashTemp(models.Model):
@@ -154,17 +151,3 @@ class Ingredients(models.Model):
 
     def __str__(self):
         return f"{self.name} {self.get_type_display()} {self.get_unit_display()} {self.get_purpose_display()} {self.beer}"
-
-
-class BeerProject(models.Model):
-    beer = models.ForeignKey("Beer", on_delete=models.PROTECT, verbose_name="Choose beer")
-    boil_volume = models.ForeignKey("BoilVolume", on_delete=models.PROTECT)
-    method = models.ForeignKey("Method", on_delete=models.PROTECT, verbose_name="Choose mash method")
-    ingredients = models.ManyToManyField("Ingredients", verbose_name="Ingredients")
-    beer_image = models.ForeignKey("BeerImage", on_delete=models.PROTECT, verbose_name="Choose image")
-    created_date = models.DateField(auto_now_add=True, verbose_name="created at", blank=True)
-    updated_date = models.DateField(auto_now=True, verbose_name='last updated', blank=True)
-    preparation_time = models.IntegerField(verbose_name="Full time for beer project")
-
-    def __str__(self):
-        return f"{self.beer} project"

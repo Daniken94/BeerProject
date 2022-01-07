@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script src="{% static 'scripts/main.js' %}" async defer></script>
+{% endblock %}
+
+{% block container %}
+
+<div class="col d-flex justify-content-end mb-2">
+     <div class="col noPadding"><h2 class="color-header text-uppercase">Add new components</h2></div>
+      <input type="submit" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4" value="Powrót" onClick="history.back();" />
+</div>
+<br>
+<a class="btn btn-primary" href="{% url 'beerproject:new_project_beer' %}">Add new beer</a>
+<br>
+<br>
+<a class="btn btn-primary" href="{% url 'beerproject:new_project_beer_image' %}">Add new beer image</a>
+<br>
+<br>
+<a class="btn btn-primary" href="{% url 'beerproject:new_project_beer_ingredients' %}">Add new beer ingredients</a>
+<br>
+<br>
+<a class="btn btn-primary" href="{% url 'beerproject:new_project_beer_mashtemp' %}">Add new beer mash temp method</a>
+<br>
+<br>
+<a class="btn btn-primary" href="{% url 'beerproject:new_project_beer_fermentation' %}">Add new beer fermentation method</a>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+{% endblock %}
+
+{% block aside %}
+
+{% endblock %}

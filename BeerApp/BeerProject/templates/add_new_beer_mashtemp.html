@@ -15,13 +15,18 @@
 
 {% block container %}
 
-<h2>add project<h2>
+<div class="col d-flex justify-content-end mb-2">
+     <div class="col noPadding"><h2 class="color-header text-uppercase">Add new beer mash temp method</h2></div>
+      <input type="submit" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4" value="Powrót" onClick="history.back();" />
+</div>
+    <br>
     <form action="" method="post">
     {% csrf_token %}
 
     {{ form|crispy }}
-        <button type="submit">Create Beer</button>
+        <button type="submit">Add beer mash temp method</button>
     </form>
+
 <br>
 <br>
 <br>
