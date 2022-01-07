@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic.edit import DeleteView
 from .models import Beer, Ingredients, BoilVolume, MashTemp, Fermentation, BeerImage
@@ -115,4 +115,13 @@ class FermentationAddView(View):
         return render(request, "dashboard_project.html", {'form': form})
 
 
+def update_beer_view(request, pk):
+    beer = Beer.objects.get(id=pk)
+    form = AddBeerForm(instance=beer)
 
+    if request.method == 'POST':
+        form = AddBeerForm(request.POST, instance=beer)
+        if form.is_valid():
+            form.save()
+            return render(request, "dashboard_project.html")
+    return render(request, "add_new_beer.html", {'form': form})

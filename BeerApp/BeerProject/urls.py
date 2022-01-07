@@ -14,4 +14,5 @@ urlpatterns = [
     path('project/new/beer_ingredients/', IngredientsAddView.as_view(), name='new_project_beer_ingredients'),
     path('project/new/beer_mashtemp/', MashTempAddView.as_view(), name='new_project_beer_mashtemp'),
     path('project/new/beer_fermentation/', FermentationAddView.as_view(), name='new_project_beer_fermentation'),
+    path('project/update/beer/<int:pk>/', views.update_beer_view, name='update_project_beer'),
 ]

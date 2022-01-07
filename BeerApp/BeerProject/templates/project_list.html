@@ -31,10 +31,18 @@
 </div>
 
     <br>
+
+<table class="table table-sm">
     {% for i in beer  %}
-    <li class="page-item"><a class="page-link" href="{% url 'beerproject:project' i.id %}">{{ i.name }}</a></li>
+<tr>
+    <td><strong>{{ i.name }}</strong></td>
+    <td><a class="btn btn-sm btn-info" href="{% url 'beerproject:project' i.id %}">Details</a></td>
+    <td><a class="btn btn-sm btn-info" href="{% url 'beerproject:update_project_beer' i.id %}">Update</a></td>
+    <td><a class="btn btn-sm btn-info" href="{% url 'beerproject:project' i.id %}">Delete</a></td>
     <br>
+</tr>
     {% endfor %}
+</table>
     <br>
     <br>
     <br>

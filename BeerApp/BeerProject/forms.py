@@ -12,16 +12,6 @@ class AddBeerForm(ModelForm):
         model = Beer
         fields = "__all__"
 
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-
-            self.helper = FormHelper
-            self.helper.form_method = 'post'
-            self.helper.layout = Layout(
-                "__all__",
-                Submit('submit', 'Submit')
-            )
-
 
 class AddBeerImageForm(ModelForm):
     class Meta:
