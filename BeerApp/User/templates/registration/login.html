@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block title %}
+    User
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script src="{% static 'scripts/main.js' %}" async defer></script>
+{% endblock %}
+
+{% block container %}
+<h3>Login Form</h3>
+<hr>
+{% if messages %}
+    {% for i in messages %}
+    <p>{{ i }}</p>
+    {% endfor %}
+{% endif %}
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ form | crispy }}
+
+        <button type="submit" class="btn btn-secondary">Save</button>
+    </form>
+{% endblock %}
+
+{% block aside %}
+
+{% endblock %}

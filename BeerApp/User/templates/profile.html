@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block title %}
+    User
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script src="{% static 'scripts/main.js' %}" async defer></script>
+{% endblock %}
+
+{% block container %}
+
+    <h2>Your profile: {{ object.username }}</h2>
+
+    <div class="card">
+      <div class="card-header">
+         <img src="" class="card-img-top" alt="">
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">{{ object.phone_number }}</h5>
+        <p class="card-text">{{ object.created }}</p>
+        <a href="{% url "user:update_profile" %}" class="btn btn-primary">Update profile</a>
+      </div>
+    </div>
+
+
+
+
+
+{% endblock %}
+
+{% block aside %}
+
+{% endblock %}

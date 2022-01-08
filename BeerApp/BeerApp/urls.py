@@ -26,6 +26,8 @@ urlpatterns = [
     path('', include("PunkApiDB.urls")),
     path('beerproject/', include("BeerProject.urls")),
     path('calculator/', include("Calculator.urls")),
+    path('accounts/', include("User.urls")),
+    path('accounts/', include("django.contrib.auth.urls")),
 ]
 
 # urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

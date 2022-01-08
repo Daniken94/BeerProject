@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Homepage</title>
 </head>
 <body>
 
@@ -24,9 +24,43 @@
 {% block container %}
 <h1>WELCOME BEER GEEKS</h1>
 <br>
-<a class="btn btn-primary" href="{% url 'punkapi:beers_type' %}">Punk's Beer Types</a>
+<strong>Here you can check beers and their recipes from the Punk brewery</strong>
+<table class="table">
+      <caption>Punk Api</caption>
+      <thead>
+        <tr>
+          <th scope="col"><a class="btn btn-sm btn-success" href="{% url 'punkapi:beers'%}">Punk's Beers</a></th>
+          <th scope="col"><a class="btn btn-sm btn-success" href="{% url 'punkapi:beers_type' %}">Punk's Beer Types</a></th>
+        </tr>
+      </thead>
+</table>
 <br>
+<strong>Here you can create your own beer project</strong>
+<table class="table">
+      <caption>Beer Projects</caption>
+      <thead>
+        <tr>
+          <th scope="col"><a class="btn btn-sm btn-warning" href="{% url 'beerproject:new_project_beer' %}">Add new beer</a></th>
+          <th scope="col"><a class="btn btn-sm btn-warning" href="{% url 'beerproject:new_project' %}">Add new component</a></a></th>
+        </tr>
+      </thead>
+</table>
 <br>
-<a class="btn btn-primary" href="{% url 'punkapi:beers' %}">Punk's Beers</a>
-<br>
+<strong>Here you can calculate some beer parameters</strong>
+<table class="table">
+      <caption>Calculator</caption>
+      <thead>
+        <tr>
+          <th scope="col"><a class="btn btn-sm btn-info" href="{% url 'calculator:calc_alc' %}">Alcohol</a></a></th>
+          <th scope="col"><a class="btn btn-sm btn-info" href="{% url 'calculator:calc_ibu' %}">IBU</a></a></th>
+          <th scope="col"><a class="btn btn-sm btn-info" href="{% url 'calculator:calc_ebc' %}">EBC</a></a></th>
+          <th scope="col"><a class="btn btn-sm btn-info" href="{% url 'calculator:calc_aut' %}">Brewhouse performance</a></a></th>
+        </tr>
+      </thead>
+</table>
+
+
+
+
+
 {% endblock %}
