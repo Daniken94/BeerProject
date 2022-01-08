@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # local
     'PunkApiDB.apps.PunkapidbConfig',
     'BeerProject.apps.BeerprojectConfig',
+    'Calculator.apps.CalculatorConfig'
 ]
 
 MIDDLEWARE = [

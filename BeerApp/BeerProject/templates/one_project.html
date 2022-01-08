@@ -24,8 +24,7 @@
 {% block container %}
 <tr>
     <td><h2>Beer Specification</h2></td>
-    <td><a class="btn btn-sm btn-success" href="{% url 'beerproject:new_project_beer' %}">Add new beer project</a></td>
-    <td><a class="btn btn-sm btn-success" href="{% url 'beerproject:new_project' %}">Add new components</a></td>
+    <td><a class="btn btn-sm btn-success" href="{% url 'beerproject:new_project' %}">Add new component</a></td>
     <td><a class="btn btn-sm btn-warning" href="{% url 'beerproject:update_project_beer' beer.id %}">Update</a></td>
     <td><a class="btn btn-sm btn-danger" href="{% url 'beerproject:delete_project_beer' beer.id %}">Delete</a></td>
     <br>
@@ -125,7 +124,7 @@
     {% for i in ing_malt %}
       <tbody>
         <tr>
-          <td><strong>{{ i.name }}</strong></td>
+          <td><strong><a href="#ingredient_{{ i.id }}"></a>{{ i.name }}</strong></td>
           <td>{{ i.value }}</td>
           <td>{{ i.unit }}</td>
           <td>{{ i.sequence }}</td>
@@ -298,7 +297,7 @@
 {% endblock %}
 
 {% block aside %}
-    <img src="/media/{{ image }}" class="card-img-top" alt="">
+    <img src="/media/{{ image.url }}" class="card-img-top" alt="">
 <br>
 <br>
 <br>

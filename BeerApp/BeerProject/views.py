@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic.edit import DeleteView
+from django.urls import reverse
 from .models import Beer, Ingredients, BoilVolume, MashTemp, Fermentation, BeerImage
 from .forms import AddBeerImageForm, AddBeerForm, AddBeerIngredientsForm, AddBeerMashTempForm, AddBeerFermentationForm, AddBeerBoilVolumeForm
 
@@ -33,9 +34,6 @@ class BeerProjectView(View):
                        'ing_yeast': ingredients_yeast, 'ing_other': ingredients_other, "boil": boil_volume,
                        "fermentation": fermentation, "mash_temp": mash_temp, 'image': image})
 
-
-class DeleteBeerView(DeleteView):
-    model = Beer
 
 
 def project_add_view(request):
@@ -157,8 +155,8 @@ def update_ingredients_view(request, pk):
     if request.method == 'POST':
         form = AddBeerIngredientsForm(request.POST, instance=ingredient)
         if form.is_valid():
-            form.save()
-            return redirect("beerproject:project_list")
+                                                                   #ingredient = form.save()
+            return redirect("beerproject:project_list")            #+f"#ingredient_{ingredient.id}")
     return render(request, "add_new_ingredients.html", {'form': form})
 
 

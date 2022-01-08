@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("PunkApiDB.urls")),
     path('beerproject/', include("BeerProject.urls")),
+    path('calculator/', include("Calculator.urls")),
 ]
 
 # urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
