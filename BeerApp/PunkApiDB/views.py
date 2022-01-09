@@ -14,6 +14,10 @@ def homepage(request):
     return render(request, "homepage.html")
 
 
+def please_login(request):
+    return render(request, "please_login.html")
+
+
 def list_of_beers_type(request):
     url = 'https://api.punkapi.com/v2/beers?page=1&per_page=80'
     response = requests.get(url).json()

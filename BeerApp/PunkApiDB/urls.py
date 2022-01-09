@@ -6,6 +6,7 @@ app_name = 'punkapi'
 
 urlpatterns = [
     path('', views.homepage, name='homepage'),
+    path('login', views.please_login, name='please_login'),
     path('beers_type/', views.list_of_beers_type, name='beers_type'),
     path('beers_type/page2/', views.list_of_beers_type_page2, name='beers_type_page2'),
     path('beers_type/page3/', views.list_of_beers_type_page3, name='beers_type_page3'),

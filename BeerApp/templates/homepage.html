@@ -39,10 +39,17 @@
 <table class="table">
       <caption>Beer Projects</caption>
       <thead>
+      {% if user.is_authenticated %}
         <tr>
           <th scope="col"><a class="btn btn-sm btn-warning" href="{% url 'beerproject:new_project_beer' %}">Add new beer</a></th>
           <th scope="col"><a class="btn btn-sm btn-warning" href="{% url 'beerproject:new_project' %}">Add new component</a></a></th>
         </tr>
+      {% else %}
+        <tr>
+          <th scope="col"><a class="btn btn-sm btn-warning" href="{% url 'punkapi:please_login' %}">Add beer</a></th>
+          <th scope="col"><a class="btn btn-sm btn-warning" href="{% url 'punkapi:please_login' %}">Add new component</a></a></th>
+        </tr>
+      {% endif %}
       </thead>
 </table>
 <br>

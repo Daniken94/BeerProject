@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block title %}
+    Beer Project
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script src="{% static 'scripts/main.js' %}" async defer></script>
+{% endblock %}
+
+{% block container %}
+
+<p> User must be logged in to use this section </p>
+
+
+
+    <a class="btn btn-warning" href="{% url 'user:register' %}">Create profil</a>
+    <a class="btn btn-warning" href="{% url 'login' %}">Login</a>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+{% endblock %}
+
+{% block aside %}
+
+{% endblock %}
