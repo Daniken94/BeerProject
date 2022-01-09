@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views
 from .views import BeerProjectListView, BeerProjectView, BeerAddView, IngredientsAddView, MashTempAddView, \
     FermentationAddView, BoilVolumeAddView
@@ -25,4 +27,6 @@ urlpatterns = [
     path('project/delete/fermentation/<int:pk>/', views.delete_fermentation_view, name='delete_fermentation'),
     path('project/update/boil/<int:pk>/', views.update_boil_view, name='update_boil'),
     path('project/delete/boil/<int:pk>/', views.delete_boil_view, name='delete_boil'),
+    path('project/update/image/<int:pk>/', views.update_image_view, name='update_image'),
+    path('project/delete/image/<int:pk>/', views.delete_image_view, name='delete_image'),
 ]

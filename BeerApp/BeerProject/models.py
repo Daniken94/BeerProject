@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Beer(models.Model):
@@ -21,9 +22,10 @@ class Beer(models.Model):
     created_date = models.DateField(auto_now_add=True, verbose_name="created at", blank=True)
     updated_date = models.DateField(auto_now=True, verbose_name='last updated', blank=True)
     preparation_time = models.IntegerField(verbose_name="Full time for beer project")
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.name} by {self.user}"
 
 
 class BoilVolume(models.Model):

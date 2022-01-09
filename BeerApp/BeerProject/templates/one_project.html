@@ -297,7 +297,20 @@
 {% endblock %}
 
 {% block aside %}
-    <img src="/media/{{ image.url }}" class="card-img-top" alt="">
+{% for i in image %}
+    <img src="{{ i.image.url }}" class="card-img-top" alt="{{ i.image }}">
+{% endfor %}
+<table class="table">
+      <caption>Image actions</caption>
+    {% for i in image %}
+      <tbody>
+        <tr>
+          <td><a class="btn btn-sm btn-warning" href="{% url 'beerproject:update_image' i.id %}">Update</a></td>
+          <td><a class="btn btn-sm btn-danger" href="{% url 'beerproject:delete_image' i.id %}">Delete</a></td>
+        </tr>
+      </tbody>
+    {% endfor %}
+</table>
 <br>
 <br>
 <br>

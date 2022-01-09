@@ -2,7 +2,7 @@ from django.forms import ModelForm
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout
-
+from django.contrib.auth.models import User
 from .models import BeerImage, Beer, Ingredients, MashTemp, Fermentation, BoilVolume
 from . import models
 

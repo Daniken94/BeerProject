@@ -53,6 +53,9 @@
                 </li>
                   {% if user.is_authenticated %}
                         <li class="nav-item">
+                            <a class="nav-link" href="{% url 'punkapi:homepage' %}">Logged in as {{ user.username }}</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                         </li>
                     {% else %}
