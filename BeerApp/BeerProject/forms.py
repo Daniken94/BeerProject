@@ -14,10 +14,11 @@ class AddBeerForm(ModelForm):
         exclude = ["user"]
 
 
+# funkcja def __init__ służy do odfiltrowania pola select w formularzu po id usera
 class AddBeerImageForm(ModelForm):
     # beer = forms.ModelChoiceField(queryset=Beer.objects.all())
 
-    def __init__(self, user, *args, **kwargs):                        # funkcja służy do odfiltrowania pola select w formularzu po id usera
+    def __init__(self, user, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['beer'].queryset = Beer.objects.filter(user=user)
 
@@ -27,40 +28,24 @@ class AddBeerImageForm(ModelForm):
 
 
 class AddBeerIngredientsForm(ModelForm):
-    def __init__(self, user, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['beer'].queryset = Beer.objects.filter(user=user)
-
     class Meta:
         model = Ingredients
         fields = "__all__"
 
 
 class AddBeerBoilVolumeForm(ModelForm):
-    def __init__(self, user, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['beer'].queryset = Beer.objects.filter(user=user)
-
     class Meta:
         model = BoilVolume
         fields = "__all__"
 
 
 class AddBeerMashTempForm(ModelForm):
-    def __init__(self, user, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['beer'].queryset = Beer.objects.filter(user=user)
-
     class Meta:
         model = MashTemp
         fields = "__all__"
 
 
 class AddBeerFermentationForm(ModelForm):
-    def __init__(self, user, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['beer'].queryset = Beer.objects.filter(user=user)
-
     class Meta:
         model = Fermentation
         fields = "__all__"
