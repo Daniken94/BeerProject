@@ -5,6 +5,9 @@ from . import views
 from .views import BeerProjectListView, BeerProjectView, BeerAddView, IngredientsAddView, MashTempAddView, \
     FermentationAddView, BoilVolumeAddView, BeerImageAddView
 
+
+# path('project/new/beer_image/', views.beer_image_add_view, name='new_project_beer_image'),
+
 app_name = 'beerproject'
 
 urlpatterns = [

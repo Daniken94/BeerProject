@@ -18,7 +18,8 @@ class AddBeerForm(ModelForm):
 class AddBeerImageForm(ModelForm):
     # beer = forms.ModelChoiceField(queryset=Beer.objects.all())
 
-    def __init__(self, user, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop("user")
         super().__init__(*args, **kwargs)
         self.fields['beer'].queryset = Beer.objects.filter(user=user)
 

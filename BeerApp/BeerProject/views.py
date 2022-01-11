@@ -56,32 +56,19 @@ class BeerAddView(View):
 
 
 
-# class BeerImageAddView(View):
-#     def get(self, request):
-#         form = AddBeerImageForm(user=request.user)
-#         return render(request, 'add_new_beer_image.html', {'form': form})
-#
-#     def post(self, request):
-#         form = AddBeerImageForm(request.POST, request.FILES, user=request.user)
-#         if form.is_valid():
-#             form.save()
-#             img_obj = form.instance
-#         return render(request, 'dashboard_project.html', {'form': form, 'img_obj': img_obj})
-
 class BeerImageAddView(View):
     def get(self, request, *args, **kwargs):
         form = AddBeerImageForm(user=request.user)
         return render(request, 'add_new_beer_image.html', {'form': form})
 
     def post(self, request, *args, **kwargs):
-        breakpoint()
-        print(request.user)
         form = AddBeerImageForm(request.POST, request.FILES, user=request.user)
         if form.is_valid():
             beer = form.save(commit=False)
             beer.user = request.user
             beer.save()
-        return render(request, 'dashboard_project.html', {'form': form, 'img_obj': img_obj})
+        return render(request, 'dashboard_project.html', {'form': form, 'img_obj': beer})
+
 
 # def beer_image_add_view(request):
 #     if request.method == 'POST':
@@ -92,6 +79,19 @@ class BeerImageAddView(View):
 #             return render(request, 'dashboard_project.html', {'form': form, 'img_obj': img_obj})
 #     else:
 #         form = AddBeerImageForm(user=request.user)
+#     return render(request, 'add_new_beer_image.html', {'form': form})
+
+
+
+# def beer_image_add_view(request):
+#     if request.method == 'POST':
+#         form = AddBeerImageForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             form.save()
+#             img_obj = form.instance
+#             return render(request, 'dashboard_project.html', {'form': form, 'img_obj': img_obj})
+#     else:
+#         form = AddBeerImageForm()
 #     return render(request, 'add_new_beer_image.html', {'form': form})
 
 
@@ -259,13 +259,14 @@ def delete_boil_view(request, pk):
 
 def update_image_view(request, pk):
     image = BeerImage.objects.get(id=pk)
-    form = AddBeerImageForm(instance=image)
+    form = AddBeerImageForm(user=request.user, instance=image)
 
     if request.method == 'POST':
-        form = AddBeerImageForm(request.POST, request.FILES, instance=image)
+        form = AddBeerImageForm(request.POST, request.FILES, user=request.user, instance=image)
         if form.is_valid():
-            form.save()
-            image = form.instance
+            beer = form.save(commit=False)
+            beer.user = request.user
+            beer.save()
             return redirect("beerproject:project_list")
     return render(request, "add_new_beer_image.html", {'form': form, "image": image})
 
