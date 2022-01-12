@@ -35,10 +35,10 @@ class BeerProjectView(View):
                        'ing_yeast': ingredients_yeast, 'ing_other': ingredients_other, "boil": boil_volume,
                        "fermentation": fermentation, "mash_temp": mash_temp, 'image': image})
 
-
-def project_add_view(request):
-    beer = Beer.objects.all()
-    return render(request, "dashboard_project.html", {'beer': beer})
+class ProjectAddView(View):
+    def get(self, request):
+        beer = Beer.objects.all()
+        return render(request, "dashboard_project.html", {'beer': beer})
 
 
 class BeerAddView(View):
@@ -55,7 +55,6 @@ class BeerAddView(View):
         return render(request, "dashboard_project.html", {'form': form})
 
 
-
 class BeerImageAddView(View):
     def get(self, request, *args, **kwargs):
         form = AddBeerImageForm(user=request.user)
@@ -70,210 +69,228 @@ class BeerImageAddView(View):
         return render(request, 'dashboard_project.html', {'form': form, 'img_obj': beer})
 
 
-# def beer_image_add_view(request):
-#     if request.method == 'POST':
-#         form = AddBeerImageForm(request.POST, request.FILES, user=request.user)
-#         if form.is_valid():
-#             form.save()
-#             img_obj = form.instance
-#             return render(request, 'dashboard_project.html', {'form': form, 'img_obj': img_obj})
-#     else:
-#         form = AddBeerImageForm(user=request.user)
-#     return render(request, 'add_new_beer_image.html', {'form': form})
-
-
-
-# def beer_image_add_view(request):
-#     if request.method == 'POST':
-#         form = AddBeerImageForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             form.save()
-#             img_obj = form.instance
-#             return render(request, 'dashboard_project.html', {'form': form, 'img_obj': img_obj})
-#     else:
-#         form = AddBeerImageForm()
-#     return render(request, 'add_new_beer_image.html', {'form': form})
-
-
 class IngredientsAddView(View):
-    def get(self, request):
-        form = AddBeerIngredientsForm()
+    def get(self, request, *args, **kwargs):
+        form = AddBeerIngredientsForm(user=request.user)
         return render(request, "add_new_ingredients.html", {'form': form})
 
-    def post(self, request):
-        form = AddBeerIngredientsForm()
-
-        if request.method == 'POST':
-            form = AddBeerIngredientsForm(request.POST)
-            if form.is_valid():
-                form.save()
+    def post(self, request, *args, **kwargs):
+        form = AddBeerIngredientsForm(request.POST, user=request.user)
+        if form.is_valid():
+            beer = form.save(commit=False)
+            beer.user = request.user
+            beer.save()
         return render(request, "dashboard_project.html", {'form': form})
 
 
 class BoilVolumeAddView(View):
     def get(self, request):
-        form = AddBeerBoilVolumeForm()
+        form = AddBeerBoilVolumeForm(user=request.user)
         return render(request, "add_new_beer_boil_volume.html", {'form': form})
 
     def post(self, request):
-        form = AddBeerBoilVolumeForm()
-
-        if request.method == 'POST':
-            form = AddBeerBoilVolumeForm(request.POST)
-            if form.is_valid():
-                form.save()
+        form = AddBeerBoilVolumeForm(request.POST, user=request.user)
+        if form.is_valid():
+            beer = form.save(commit=False)
+            beer.user = request.user
+            beer.save()
         return render(request, "dashboard_project.html", {'form': form})
 
 
 class MashTempAddView(View):
     def get(self, request):
-        form = AddBeerMashTempForm()
+        form = AddBeerMashTempForm(user=request.user)
         return render(request, "add_new_beer_mashtemp.html", {'form': form})
 
     def post(self, request):
-        form = AddBeerMashTempForm()
+        form = AddBeerMashTempForm(request.POST, user=request.user)
 
         if request.method == 'POST':
-            form = AddBeerMashTempForm(request.POST)
+            form = AddBeerMashTempForm(request.POST, user=request.user)
             if form.is_valid():
-                form.save()
+                beer = form.save(commit=False)
+                beer.user = request.user
+                beer.save()
         return render(request, "dashboard_project.html", {'form': form})
 
 
 class FermentationAddView(View):
     def get(self, request):
-        form = AddBeerFermentationForm()
+        form = AddBeerFermentationForm(user=request.user)
         return render(request, "add_new_beer_fermentation.html", {'form': form})
 
     def post(self, request):
-        form = AddBeerFermentationForm()
+        form = AddBeerFermentationForm(request.POST, user=request.user)
 
         if request.method == 'POST':
-            form = AddBeerFermentationForm(request.POST)
+            form = AddBeerFermentationForm(request.POST, user=request.user)
             if form.is_valid():
-                form.save()
+                beer = form.save(commit=False)
+                beer.user = request.user
+                beer.save()
         return render(request, "dashboard_project.html", {'form': form})
 
 
-def update_beer_view(request, pk):
-    beer = Beer.objects.get(id=pk)
-    form = AddBeerForm(instance=beer)
+class UpdateBeerView(View):
+    def get(self, request, pk):
+        beer = Beer.objects.get(id=pk)
+        form = AddBeerForm(instance=beer)
+        return render(request, "add_new_beer.html", {'form': form})
 
-    if request.method == 'POST':
+    def post(self, request, pk):
+        beer = Beer.objects.get(id=pk)
         form = AddBeerForm(request.POST, instance=beer)
         if form.is_valid():
             form.save()
             return redirect("beerproject:project_list")
-    return render(request, "add_new_beer.html", {'form': form})
 
 
-def delete_beer_view(request, pk):
-    beer = Beer.objects.get(id=pk)
-    if request.method == "POST":
+class DeleteBeerView(View):
+    def get(self, request, pk):
+        beer = Beer.objects.get(id=pk)
+        return render(request, "delete_beer.html", {"beer": beer})
+    def post(self, request, pk):
+        beer = Beer.objects.get(id=pk)
         beer.delete()
         return redirect("beerproject:project_list")
-    return render(request, "delete_beer.html", {"beer": beer})
 
 
-def update_ingredients_view(request, pk):
-    ingredient = Ingredients.objects.get(id=pk)
-    # beer_id = Ingredients.objects.filter(beer_id=id)
-    form = AddBeerIngredientsForm(instance=ingredient)
+class UpdateImageView(View):
+    def get(self, request, pk):
+        image = BeerImage.objects.get(id=pk)
+        form = AddBeerImageForm(user=request.user, instance=image)
+        return render(request, "add_new_beer_image.html", {'form': form, "image": image})
 
-    if request.method == 'POST':
-        form = AddBeerIngredientsForm(request.POST, instance=ingredient)
-        if form.is_valid():
-            form.save()
-            # ingredient = form.save()
-            return redirect(f"beerproject:project_list")  # +f"#ingredient_{ingredient.id}"
-    return render(request, "add_new_ingredients.html", {'form': form})
-
-
-def delete_ingredients_view(request, pk):
-    ingredient = Ingredients.objects.get(id=pk)
-    if request.method == "POST":
-        ingredient.delete()
-        return redirect("beerproject:project_list")
-    return render(request, "delete_item.html", {"item": ingredient})
-
-
-def update_mashtemp_view(request, pk):
-    mashtemp = MashTemp.objects.get(id=pk)
-    form = AddBeerMashTempForm(instance=mashtemp)
-
-    if request.method == 'POST':
-        form = AddBeerMashTempForm(request.POST, instance=mashtemp)
-        if form.is_valid():
-            form.save()
-            return redirect("beerproject:project_list")
-    return render(request, "add_new_beer_mashtemp.html", {'form': form})
-
-
-def delete_mashtemp_view(request, pk):
-    mashtemp = MashTemp.objects.get(id=pk)
-    if request.method == "POST":
-        mashtemp.delete()
-        return redirect("beerproject:project_list")
-    return render(request, "delete_mashtemp.html", {"item": mashtemp})
-
-
-def update_fermentation_view(request, pk):
-    fermentation = Fermentation.objects.get(id=pk)
-    form = AddBeerFermentationForm(instance=fermentation)
-
-    if request.method == 'POST':
-        form = AddBeerFermentationForm(request.POST, instance=fermentation)
-        if form.is_valid():
-            form.save()
-            return redirect("beerproject:project_list")
-    return render(request, "add_new_beer_fermentation.html", {'form': form})
-
-
-def delete_fermentation_view(request, pk):
-    fermentation = Fermentation.objects.get(id=pk)
-    if request.method == "POST":
-        fermentation.delete()
-        return redirect("beerproject:project_list")
-    return render(request, "delete_fermentation.html", {"item": fermentation})
-
-
-def update_boil_view(request, pk):
-    boil = BoilVolume.objects.get(id=pk)
-    form = AddBeerBoilVolumeForm(instance=boil)
-
-    if request.method == 'POST':
-        form = AddBeerBoilVolumeForm(request.POST, instance=boil)
-        if form.is_valid():
-            form.save()
-            return redirect("beerproject:project_list")
-    return render(request, "add_new_beer_boil_volume.html", {'form': form})
-
-
-def delete_boil_view(request, pk):
-    boil = BoilVolume.objects.get(id=pk)
-    if request.method == "POST":
-        boil.delete()
-        return redirect("beerproject:project_list")
-    return render(request, "delete_boil.html", {"item": boil})
-
-
-def update_image_view(request, pk):
-    image = BeerImage.objects.get(id=pk)
-    form = AddBeerImageForm(user=request.user, instance=image)
-
-    if request.method == 'POST':
+    def post(self, request, pk):
+        image = BeerImage.objects.get(id=pk)
         form = AddBeerImageForm(request.POST, request.FILES, user=request.user, instance=image)
         if form.is_valid():
             beer = form.save(commit=False)
             beer.user = request.user
             beer.save()
             return redirect("beerproject:project_list")
-    return render(request, "add_new_beer_image.html", {'form': form, "image": image})
 
 
-def delete_image_view(request, pk):
-    image = BeerImage.objects.get(id=pk)
-    if request.method == "POST":
+class DeleteImageView(View):
+    def get(self, request, pk):
+        image = BeerImage.objects.get(id=pk)
+        return render(request, "delete_image.html", {"item": image})
+
+    def post(self, request, pk):
+        image = BeerImage.objects.get(id=pk)
         image.delete()
         return redirect("beerproject:project_list")
-    return render(request, "delete_image.html", {"item": image})
+
+
+
+class UpdateIngredientsView(View):
+    def get(self, request, pk):
+        ingredient = Ingredients.objects.get(id=pk)
+        # beer_id = Ingredients.objects.filter(beer_id=id)
+        form = AddBeerIngredientsForm(user=request.user, instance=ingredient)
+        return render(request, "add_new_ingredients.html", {'form': form})
+
+    def post(self, request, pk):
+        ingredient = Ingredients.objects.get(id=pk)
+        form = AddBeerIngredientsForm(request.POST, user=request.user, instance=ingredient)
+        if form.is_valid():
+            beer = form.save(commit=False)
+            beer.user = request.user
+            beer.save()
+            # ingredient = form.save()
+            return redirect(f"beerproject:project_list")  # +f"#ingredient_{ingredient.id}"
+
+
+class DeleteIngredientsView(View):
+    def get(self, request, pk):
+        ingredient = Ingredients.objects.get(id=pk)
+        return render(request, "delete_item.html", {"item": ingredient})
+    def post(self, request, pk):
+        ingredient = Ingredients.objects.get(id=pk)
+        ingredient.delete()
+        return redirect("beerproject:project_list")
+
+
+class UpdateMashtempView(View):
+    def get(self, request, pk):
+        mashtemp = MashTemp.objects.get(id=pk)
+        form = AddBeerMashTempForm(user=request.user, instance=mashtemp)
+        return render(request, "add_new_beer_mashtemp.html", {'form': form})
+
+    def post(self, request, pk):
+        mashtemp = MashTemp.objects.get(id=pk)
+        form = AddBeerMashTempForm(request.POST, user=request.user, instance=mashtemp)
+        if form.is_valid():
+            beer = form.save(commit=False)
+            beer.user = request.user
+            beer.save()
+            return redirect("beerproject:project_list")
+
+
+class DeleteMashtempView(View):
+    def get(self, request, pk):
+        mashtemp = MashTemp.objects.get(id=pk)
+        return render(request, "delete_mashtemp.html", {"item": mashtemp})
+
+    def post(self, request, pk):
+        mashtemp = MashTemp.objects.get(id=pk)
+        mashtemp.delete()
+        return redirect("beerproject:project_list")
+
+
+class UpdateFermentationView(View):
+    def get(self, request, pk):
+        fermentation = Fermentation.objects.get(id=pk)
+        form = AddBeerFermentationForm(user=request.user, instance=fermentation)
+        return render(request, "add_new_beer_fermentation.html", {'form': form})
+
+    def post(self, request, pk):
+        fermentation = Fermentation.objects.get(id=pk)
+        form = AddBeerFermentationForm(request.POST, user=request.user, instance=fermentation)
+        if form.is_valid():
+            beer = form.save(commit=False)
+            beer.user = request.user
+            beer.save()
+            return redirect("beerproject:project_list")
+
+
+class DeleteFermentationView(View):
+    def get(self, request, pk):
+        fermentation = Fermentation.objects.get(id=pk)
+        return render(request, "delete_fermentation.html", {"item": fermentation})
+
+    def post(self, request, pk):
+        fermentation = Fermentation.objects.get(id=pk)
+        fermentation.delete()
+        return redirect("beerproject:project_list")
+
+
+class UpdateBoilView(View):
+    def get(self, request, pk):
+        boil = BoilVolume.objects.get(id=pk)
+        form = AddBeerBoilVolumeForm(user=request.user, instance=boil)
+        return render(request, "add_new_beer_boil_volume.html", {'form': form})
+
+    def post(self, request, pk):
+        boil = BoilVolume.objects.get(id=pk)
+        form = AddBeerBoilVolumeForm(request.POST, user=request.user, instance=boil)
+        if form.is_valid():
+            beer = form.save(commit=False)
+            beer.user = request.user
+            beer.save()
+            return redirect("beerproject:project_list")
+
+
+class DeleteBoilView(View):
+    def get(self, request, pk):
+        boil = BoilVolume.objects.get(id=pk)
+        return render(request, "delete_boil.html", {"item": boil})
+
+    def post(self, request, pk):
+        boil = BoilVolume.objects.get(id=pk)
+        boil.delete()
+        return redirect("beerproject:project_list")
+
+
+
+

@@ -29,24 +29,48 @@ class AddBeerImageForm(ModelForm):
 
 
 class AddBeerIngredientsForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop("user")
+        super().__init__(*args, **kwargs)
+        self.fields['beer'].queryset = Beer.objects.filter(user=user)
+
     class Meta:
         model = Ingredients
         fields = "__all__"
 
 
 class AddBeerBoilVolumeForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop("user")
+        super().__init__(*args, **kwargs)
+        self.fields['beer'].queryset = Beer.objects.filter(user=user)
+
     class Meta:
         model = BoilVolume
         fields = "__all__"
 
 
 class AddBeerMashTempForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop("user")
+        super().__init__(*args, **kwargs)
+        self.fields['beer'].queryset = Beer.objects.filter(user=user)
+
     class Meta:
         model = MashTemp
         fields = "__all__"
 
 
 class AddBeerFermentationForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop("user")
+        super().__init__(*args, **kwargs)
+        self.fields['beer'].queryset = Beer.objects.filter(user=user)
+
     class Meta:
         model = Fermentation
         fields = "__all__"
