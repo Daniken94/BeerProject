@@ -14,8 +14,8 @@ class AlcCalcView(View):
         form = AlcCalcForm()
         OG = float(request.POST.get("OG"))
         FG = float(request.POST.get("FG"))
-        alc_prime = round(((OG-FG) / 1.938), 2)
-        alc = f"The alcohol level in your beer is {alc_prime}"
+        alc_prime = round(((OG-FG) / 1.938), 1)
+        alc = f"The alcohol level in your beer is {alc_prime} %"
         if request.method == 'POST':
             form = AlcCalcForm(request.POST)
             if form.is_valid():
