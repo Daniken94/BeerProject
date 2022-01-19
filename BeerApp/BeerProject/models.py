@@ -119,7 +119,6 @@ class Ingredients(models.Model):
         ('bittering', 'bittering'),
         ("aroma", "aroma"),
         ("dual use", "dual use"),
-        ("malt", "malt")
     )
 
     sequence_choices = (

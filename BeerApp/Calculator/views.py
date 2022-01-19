@@ -11,15 +11,15 @@ class AlcCalcView(View):
         return render(request, "alc_calc.html", {'form': form})
 
     def post(self, request):
-        form = AlcCalcForm()
-        OG = float(request.POST.get("OG"))
-        FG = float(request.POST.get("FG"))
-        alc_prime = round(((OG-FG) / 1.938), 1)
-        alc = f"The alcohol level in your beer is {alc_prime} %"
-        if request.method == 'POST':
-            form = AlcCalcForm(request.POST)
-            if form.is_valid():
-                return render(request, "alc_calc.html", {'form': form, "alc": alc})
+        form = AlcCalcForm(request.POST)
+        if form.is_valid():
+            OG = form.cleaned_data["OG"]
+            FG = form.cleaned_data["FG"]
+            alc_prime = round(((OG - FG) / 1.938), 1)
+            attenuation = round((100 - (FG * 100 / OG)), 1)
+            alc = f"The alcohol level in your beer is {alc_prime} %"
+            aut = f"The auttenuation level is {attenuation} %"
+            return render(request, "alc_calc.html", {'form': form, "alc": alc, "aut": aut})
         return render(request, "alc_calc.html", {'form': form})
 
 
@@ -27,21 +27,18 @@ class AlcCalcView(View):
 class AutCalcView(View):
     def get(self, request):
         form = AutCalcForm()
-        return render(request, "attenuation_level.html", {'form': form})
+        return render(request, "brewhouse_performance.html", {'form': form})
 
     def post(self, request):
-        form = AutCalcForm()
-        value_beer = float(request.POST.get("value_beer"))
-        blg = float(request.POST.get("blg"))
-        value_malt = float(request.POST.get("value_malt"))
-        aut_prime = round((((value_beer * blg) * 1.05) / value_malt), 2)
-        aut = f"The attenuation level in your beer is {aut_prime}%"
-        if request.method == 'POST':
-            form = AutCalcForm(request.POST)
-            if form.is_valid():
-                return render(request, "attenuation_level.html", {'form': form, "aut": aut})
-        return render(request, "attenuation_level.html", {'form': form})
-
+        form = AutCalcForm(request.POST)
+        if form.is_valid():
+            value_beer = form.cleaned_data["value_beer"]
+            blg = form.cleaned_data["blg"]
+            value_malt = form.cleaned_data["value_malt"]
+            aut_prime = round((((value_beer * blg) * 1.05) / value_malt), 2)
+            aut = f"The performance level of your brewhouse is {aut_prime}%"
+            return render(request, "brewhouse_performance.html", {'form': form, "aut": aut})
+        return render(request, "brewhouse_performance.html", {'form': form})
 
 
 
@@ -51,19 +48,17 @@ class IBUCalcView(View):
         return render(request, "ibu_calc.html", {'form': form})
 
     def post(self, request):
-        form = IBUCalcForm()
-        hops = float(request.POST.get("hops"))
-        acids = float(request.POST.get("acids"))
-        utilization = float(request.POST.get("utilization"))
-        value_beer = float(request.POST.get("value_beer"))
-        ibu1 = (hops * acids * utilization)
-        ibu2 = value_beer * 10
-        ibu_prime = round(ibu1 / ibu2, 2)
-        ibu = f"The IBU level in your beer is {ibu_prime}"
-        if request.method == 'POST':
-            form = IBUCalcForm(request.POST)
-            if form.is_valid():
-                return render(request, "ibu_calc.html", {'form': form, "ibu": ibu})
+        form = IBUCalcForm(request.POST)
+        if form.is_valid():
+            hops = form.cleaned_data["hops"]
+            acids = form.cleaned_data["acids"]
+            utilization = form.cleaned_data["utilization"]
+            value_beer = form.cleaned_data["value_beer"]
+            ibu1 = (hops * acids * utilization)
+            ibu2 = value_beer * 20
+            ibu_prime = int(ibu1 / ibu2)
+            ibu = f"The IBU level in your beer is {ibu_prime}"
+            return render(request, "ibu_calc.html", {'form': form, "ibu": ibu})
         return render(request, "ibu_calc.html", {'form': form})
 
 

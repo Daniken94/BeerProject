@@ -10,14 +10,12 @@ from . import models
 class AddBeerForm(ModelForm):
     class Meta:
         model = Beer
-        # fields = "__all__"
-        exclude = ["user"]
+        fields = ["name", "tagline", "description", "og", "fg", "abv", "ibu", "ebc", "ph", "attenuation_level",
+                  "beer_volume", "unit", "preparation_time"]
 
 
 # funkcja def __init__ służy do odfiltrowania pola select w formularzu po id usera
 class AddBeerImageForm(ModelForm):
-    # beer = forms.ModelChoiceField(queryset=Beer.objects.all())
-
     def __init__(self, *args, **kwargs):
         user = kwargs.pop("user")
         super().__init__(*args, **kwargs)
@@ -25,11 +23,10 @@ class AddBeerImageForm(ModelForm):
 
     class Meta:
         model = BeerImage
-        fields = "__all__"
+        fields = ["image", "beer"]
 
 
 class AddBeerIngredientsForm(ModelForm):
-
     def __init__(self, *args, **kwargs):
         user = kwargs.pop("user")
         super().__init__(*args, **kwargs)
@@ -37,11 +34,11 @@ class AddBeerIngredientsForm(ModelForm):
 
     class Meta:
         model = Ingredients
-        fields = "__all__"
+        fields = ["name", "type", "description", "value", "unit", "ebc", "purpose", "aac", "country", "sequence",
+                  "sequence_unit", "beer"]
 
 
 class AddBeerBoilVolumeForm(ModelForm):
-
     def __init__(self, *args, **kwargs):
         user = kwargs.pop("user")
         super().__init__(*args, **kwargs)
@@ -49,11 +46,10 @@ class AddBeerBoilVolumeForm(ModelForm):
 
     class Meta:
         model = BoilVolume
-        fields = "__all__"
+        fields = ["value", "unit", "substance", "beer"]
 
 
 class AddBeerMashTempForm(ModelForm):
-
     def __init__(self, *args, **kwargs):
         user = kwargs.pop("user")
         super().__init__(*args, **kwargs)
@@ -61,11 +57,10 @@ class AddBeerMashTempForm(ModelForm):
 
     class Meta:
         model = MashTemp
-        fields = "__all__"
+        fields = ["value_temperature", "unit", "duration", "sequence", "beer"]
 
 
 class AddBeerFermentationForm(ModelForm):
-
     def __init__(self, *args, **kwargs):
         user = kwargs.pop("user")
         super().__init__(*args, **kwargs)
@@ -73,4 +68,5 @@ class AddBeerFermentationForm(ModelForm):
 
     class Meta:
         model = Fermentation
-        fields = "__all__"
+        fields = ["value_temperature", "unit", "duration", "sequence", "beer"]
+

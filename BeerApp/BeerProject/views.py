@@ -7,6 +7,10 @@ from .forms import AddBeerImageForm, AddBeerForm, AddBeerIngredientsForm, AddBee
     AddBeerBoilVolumeForm
 
 
+# gunicorn
+# VPS server
+
+
 class BeerProjectListView(View):
     def get(self, request):
         current_user = request.user.id
@@ -18,7 +22,7 @@ class BeerProjectListView(View):
 class BeerProjectView(View):
     def get(self, request, *args, **kwargs):
         id = kwargs['pk']
-        beer = Beer.objects.get(pk=id)
+        beer = Beer.objects.filter(user=request.user).get(pk=id)
 
         ingredients_malt = Ingredients.objects.filter(beer_id=id, type=1).order_by('sequence')
         ingredients_hop = Ingredients.objects.filter(beer_id=id, type=2).order_by('sequence')
