@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import Http404
 from django.views import View
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -9,6 +10,10 @@ from .forms import AddBeerImageForm, AddBeerForm, AddBeerIngredientsForm, AddBee
 
 # gunicorn
 # VPS server
+
+
+def View404(request):
+    return render(request, "404.html")
 
 
 class BeerProjectListView(View):
@@ -22,7 +27,9 @@ class BeerProjectListView(View):
 class BeerProjectView(View):
     def get(self, request, *args, **kwargs):
         id = kwargs['pk']
-        beer = Beer.objects.filter(user=request.user).get(pk=id)
+
+        # beer = Beer.objects.filter(user=request.user).get(pk=id)
+        beer = get_object_or_404(Beer, user=request.user, pk=id)
 
         ingredients_malt = Ingredients.objects.filter(beer_id=id, type=1).order_by('sequence')
         ingredients_hop = Ingredients.objects.filter(beer_id=id, type=2).order_by('sequence')
