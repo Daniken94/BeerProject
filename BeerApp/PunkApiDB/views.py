@@ -6,9 +6,6 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 import requests
 
 
-# superuser - kamil
-# email - kamil@gmail.com
-# hasło - kamil
 
 def homepage(request):
     return render(request, "homepage.html")
