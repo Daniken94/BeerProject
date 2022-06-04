@@ -1,3 +1,6 @@
 from django.test import TestCase
+from .views import AlcCalcView, AutCalcView, IBUCalcView
 
-# Create your tests here.
+
+
+
