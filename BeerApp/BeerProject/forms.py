@@ -10,7 +10,7 @@ from . import models
 class AddBeerForm(ModelForm):
     class Meta:
         model = Beer
-        fields = ["brew", "name", "tagline", "description", "og", "fg", "abv", "ibu", "ebc", "ph", "attenuation_level",
+        fields = ["brew", "name", "tagline", "description", "og", "fg", "abv", "ibu", "ebc", "ph", "alc", "attenuation_level",
                   "beer_volume", "unit", "preparation_time"]
 
 

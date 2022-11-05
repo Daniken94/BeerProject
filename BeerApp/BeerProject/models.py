@@ -17,6 +17,7 @@ class Beer(models.Model):
     ibu = models.IntegerField(blank=True, null=True)
     ebc = models.CharField(max_length=120, blank=True, null=True)
     ph = models.IntegerField(blank=True, null=True)
+    alc = models.FloatField(blank=True, null=True)
     attenuation_level = models.FloatField(blank=True, null=True)
     beer_volume = models.FloatField()
     unit = models.CharField(max_length=50, choices=BEER_CHOICES)
