@@ -7,6 +7,7 @@ class Beer(models.Model):
         ('litres', 'litres'),
     )
 
+    brew = models.IntegerField(blank=True, null=True)
     name = models.CharField(max_length=120)
     tagline = models.CharField(max_length=120, verbose_name="Beer style")
     description = models.TextField(default="", blank=True)
@@ -14,7 +15,7 @@ class Beer(models.Model):
     fg = models.FloatField(blank=True, null=True, verbose_name="Gęstość końcowa BLG")
     abv = models.FloatField(blank=True, null=True)
     ibu = models.IntegerField(blank=True, null=True)
-    ebc = models.IntegerField(blank=True, null=True)
+    ebc = models.CharField(max_length=120, blank=True, null=True)
     ph = models.IntegerField(blank=True, null=True)
     attenuation_level = models.FloatField(blank=True, null=True)
     beer_volume = models.FloatField()
@@ -135,11 +136,12 @@ class Ingredients(models.Model):
     )
 
     name = models.CharField(max_length=120)
+    concern = models.CharField(max_length=120, blank=True, null=True)
     type = models.IntegerField(choices=type_choices)
     description = models.TextField(default="", blank=True)
     value = models.FloatField()
     unit = models.CharField(max_length=50, choices=unit_choices)
-    ebc = models.IntegerField(blank=True, null=True)
+    ebc = models.CharField(max_length=120, blank=True, null=True)
     purpose = models.CharField(max_length=50, choices=purpose_choices, blank=True, null=True)
     aac = models.IntegerField(blank=True, verbose_name="Alfa acid", null=True)
     country = models.CharField(max_length=120, blank=True)

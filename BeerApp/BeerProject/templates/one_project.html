@@ -30,6 +30,9 @@
     <br>
 </tr>
     <br>
+    <strong>Brew: </strong>
+    {{ beer.brew }}
+    <br>
     <strong>Name: </strong>
     {{ beer.name }}
     <br>
@@ -113,6 +116,7 @@
       <thead>
         <tr>
           <th scope="col">Name</th>
+          <th scope="col">Concern</th>
           <th scope="col">Value</th>
           <th scope="col">Unit</th>
           <th scope="col">Sequence</th>
@@ -125,6 +129,7 @@
       <tbody>
         <tr>
           <td><strong><a href="#ingredient_{{ i.id }}"></a>{{ i.name }}</strong></td>
+          <td>{{ i.concern }}</td>
           <td>{{ i.value }}</td>
           <td>{{ i.unit }}</td>
           <td>{{ i.sequence }}</td>
