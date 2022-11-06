@@ -40,7 +40,8 @@
 <table class="table table-sm">
     {% for im in image %}
 <tr>
-    <td><strong>{{ im.title }}</strong></td>
+    <td><strong>Warka nr {{ im.beer.brew }}</strong></td>
+    <td><h4>{{ im.beer.name }}</h4></td>
     <td><img src="{{ im.image.url }}" class="image" alt="{{ im.image }}"></td>
     <td><a class="btn btn-sm btn-info" href="{% url 'beerproject:project' im.beer.id %}">Details</a></td>
     <td><a class="btn btn-sm btn-warning" href="{% url 'beerproject:update_project_beer' im.beer.id %}">Update</a></td>

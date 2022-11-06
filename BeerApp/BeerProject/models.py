@@ -20,11 +20,20 @@ class Beer(models.Model):
     alc = models.FloatField(blank=True, null=True)
     attenuation_level = models.FloatField(blank=True, null=True)
     beer_volume = models.FloatField()
-    unit = models.CharField(max_length=50, choices=BEER_CHOICES)
+    unit = models.CharField(max_length=50, choices=BEER_CHOICES, default="litres")
     created_date = models.DateField(auto_now_add=True, verbose_name="created at", blank=True)
     updated_date = models.DateField(auto_now=True, verbose_name='last updated', blank=True)
     preparation_time = models.IntegerField(verbose_name="Full time for beer project")
     user = models.ForeignKey(User, on_delete=models.PROTECT)
+
+    def save(self, *args, **kwargs):
+        if self.og and self.fg is not None:
+            self.alc = round(((self.og - self.fg) / 1.938), 1)
+            self.attenuation_level = round((100 - (self.fg * 100 / self.og)), 1)
+        else:
+            self.alc = 0
+            self.attenuation_level = 0
+        super(Beer, self).save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.name} by {self.user}"
@@ -43,8 +52,9 @@ class BoilVolume(models.Model):
         return f"{self.value} {self.get_unit_display()} of {self.substance}"
 
 
+
 class BeerImage(models.Model):
-    image = models.ImageField(upload_to="product_images", null=True)
+    image = models.ImageField(upload_to="product_images", null=True, default="product_images/default.png")
     beer = models.ForeignKey("Beer", on_delete=models.CASCADE, blank=True)
     title = models.CharField(max_length=120, blank=True, null=True)
 
@@ -75,7 +85,7 @@ class MashTemp(models.Model):
     )
 
     value_temperature = models.IntegerField()
-    unit = models.CharField(max_length=10, choices=unit_choices)
+    unit = models.CharField(max_length=10, choices=unit_choices, default="celsius")
     duration = models.IntegerField(help_text="How long in minutes")
     sequence = models.IntegerField(choices=sequence_choices)
     beer = models.ForeignKey("Beer", on_delete=models.CASCADE, blank=True)
@@ -98,7 +108,7 @@ class Fermentation(models.Model):
     )
 
     value_temperature = models.IntegerField()
-    unit = models.CharField(max_length=10, choices=unit_choices)
+    unit = models.CharField(max_length=10, choices=unit_choices, default="celsius")
     duration = models.IntegerField(help_text="How long in days", blank=True, null=True)
     sequence = models.IntegerField(choices=sequence_choices)
     beer = models.ForeignKey("Beer", on_delete=models.CASCADE, blank=True)
