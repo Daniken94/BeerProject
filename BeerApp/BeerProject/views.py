@@ -19,7 +19,7 @@ def View404(request):
 class BeerProjectListView(View):
     def get(self, request):
         current_user = request.user.id
-        beer = Beer.objects.filter(user_id=current_user)
+        beer = Beer.objects.filter(user_id=current_user).order_by('-brew')
         image = BeerImage.objects.all()
 
         return render(request, "project_list.html", {'beer': beer, "image": image})

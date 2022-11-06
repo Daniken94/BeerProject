@@ -46,6 +46,11 @@ class BoilVolume(models.Model):
 class BeerImage(models.Model):
     image = models.ImageField(upload_to="product_images", null=True)
     beer = models.ForeignKey("Beer", on_delete=models.CASCADE, blank=True)
+    title = models.CharField(max_length=120, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        self.title = self.beer.name
+        super(BeerImage, self).save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.image}"
