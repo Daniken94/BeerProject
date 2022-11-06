@@ -20,8 +20,9 @@ class BeerProjectListView(View):
     def get(self, request):
         current_user = request.user.id
         beer = Beer.objects.filter(user_id=current_user)
+        image = BeerImage.objects.all()
 
-        return render(request, "project_list.html", {'beer': beer})
+        return render(request, "project_list.html", {'beer': beer, "image": image})
 
 
 class BeerProjectView(View):

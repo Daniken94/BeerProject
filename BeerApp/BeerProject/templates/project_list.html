@@ -30,10 +30,20 @@
 
     <br>
 
+<style>
+    .image {
+        width: 50px;
+        height: 50px;
+    }
+</style>
+
 <table class="table table-sm">
     {% for i in beer  %}
 <tr>
     <td><strong>{{ i.name }}</strong></td>
+    {% for i in image %}
+    <td><img src="{{ i.image.url }}" class="image" alt="{{ i.image }}"></td>
+    {% endfor %}
     <td><a class="btn btn-sm btn-info" href="{% url 'beerproject:project' i.id %}">Details</a></td>
     <td><a class="btn btn-sm btn-warning" href="{% url 'beerproject:update_project_beer' i.id %}">Update</a></td>
     <td><a class="btn btn-sm btn-danger" href="{% url 'beerproject:delete_project_beer' i.id %}">Delete</a></td>
