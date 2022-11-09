@@ -3,8 +3,8 @@ from django.http import Http404
 from django.views import View
 from django.urls import reverse
 from django.contrib.auth.models import User
-from .models import Beer, Ingredients, BoilVolume, MashTemp, Fermentation, BeerImage
-from .forms import AddBeerImageForm, AddBeerForm, AddBeerIngredientsForm, AddBeerMashTempForm, AddBeerFermentationForm, \
+from .models import Beer, Ingredients, BoilVolume, MashTemp, Fermentation
+from .forms import AddBeerForm, AddBeerIngredientsForm, AddBeerMashTempForm, AddBeerFermentationForm, \
     AddBeerBoilVolumeForm
 
 
@@ -40,13 +40,12 @@ class BeerProjectView(View):
         boil_volume = BoilVolume.objects.filter(beer_id=id)
         mash_temp = MashTemp.objects.filter(beer_id=id)
         fermentation = Fermentation.objects.filter(beer_id=id)
-        image = BeerImage.objects.filter(beer_id=id)
         beer_image = Beer.objects.filter(id=id)
 
         return render(request, "one_project.html",
                       {'beer': beer, 'ing_malt': ingredients_malt, 'ing_hop': ingredients_hop,
                        'ing_yeast': ingredients_yeast, 'ing_other': ingredients_other, "boil": boil_volume,
-                       "fermentation": fermentation, "mash_temp": mash_temp, 'image': image, "beer_image": beer_image})
+                       "fermentation": fermentation, "mash_temp": mash_temp, "beer_image": beer_image})
 
 class ProjectAddView(View):
     def get(self, request):
@@ -66,20 +65,6 @@ class BeerAddView(View):
             beer_user.user = request.user
             beer_user.save()
         return render(request, "dashboard_project.html", {'form': form})
-
-
-class BeerImageAddView(View):
-    def get(self, request, *args, **kwargs):
-        form = AddBeerImageForm(user=request.user)
-        return render(request, 'add_new_beer_image.html', {'form': form})
-
-    def post(self, request, *args, **kwargs):
-        form = AddBeerImageForm(request.POST, request.FILES, user=request.user)
-        if form.is_valid():
-            beer = form.save(commit=False)
-            beer.user = request.user
-            beer.save()
-        return render(request, 'dashboard_project.html', {'form': form, 'img_obj': beer})
 
 
 class IngredientsAddView(View):
@@ -165,33 +150,6 @@ class DeleteBeerView(View):
     def post(self, request, pk):
         beer = Beer.objects.get(id=pk)
         beer.delete()
-        return redirect("beerproject:project_list")
-
-
-class UpdateImageView(View):
-    def get(self, request, pk):
-        image = BeerImage.objects.get(id=pk)
-        form = AddBeerImageForm(user=request.user, instance=image)
-        return render(request, "add_new_beer_image.html", {'form': form, "image": image})
-
-    def post(self, request, pk):
-        image = BeerImage.objects.get(id=pk)
-        form = AddBeerImageForm(request.POST, request.FILES, user=request.user, instance=image)
-        if form.is_valid():
-            beer = form.save(commit=False)
-            beer.user = request.user
-            beer.save()
-            return redirect("beerproject:project_list")
-
-
-class DeleteImageView(View):
-    def get(self, request, pk):
-        image = BeerImage.objects.get(id=pk)
-        return render(request, "delete_image.html", {"item": image})
-
-    def post(self, request, pk):
-        image = BeerImage.objects.get(id=pk)
-        image.delete()
         return redirect("beerproject:project_list")
 
 

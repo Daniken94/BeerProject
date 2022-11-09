@@ -7,7 +7,7 @@ class Beer(models.Model):
         ('litres', 'litres'),
     )
 
-    brew = models.IntegerField(blank=True, null=True)
+    brew = models.IntegerField()
     name = models.CharField(max_length=120)
     tagline = models.CharField(max_length=120, verbose_name="Beer style")
     description = models.TextField(default="", blank=True)
@@ -22,7 +22,7 @@ class Beer(models.Model):
     unit = models.CharField(max_length=50, choices=BEER_CHOICES, default="litres")
     created_date = models.DateField(auto_now_add=True, verbose_name="created at", blank=True)
     updated_date = models.DateField(auto_now=True, verbose_name='last updated', blank=True)
-    preparation_time = models.IntegerField(verbose_name="Full time for beer project")
+    preparation_time = models.IntegerField(verbose_name="Full time for beer project", blank=True, null=True)
     beer_image = models.ImageField(upload_to="product_images", null=True, default="product_images/default.png")
     user = models.ForeignKey(User, on_delete=models.PROTECT)
 
@@ -51,19 +51,6 @@ class BoilVolume(models.Model):
     def __str__(self):
         return f"{self.value} {self.get_unit_display()} of {self.substance}"
 
-
-
-class BeerImage(models.Model):
-    image = models.ImageField(upload_to="product_images", null=True, default="product_images/default.png")
-    beer = models.ForeignKey("Beer", on_delete=models.CASCADE, blank=True)
-    title = models.CharField(max_length=120, blank=True, null=True)
-
-    def save(self, *args, **kwargs):
-        self.title = self.beer.name
-        super(BeerImage, self).save(*args, **kwargs)
-
-    def __str__(self):
-        return f"{self.image}"
 
 
 class MashTemp(models.Model):

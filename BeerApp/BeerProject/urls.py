@@ -3,9 +3,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 from . import views
 from .views import BeerProjectListView, BeerProjectView, BeerAddView, IngredientsAddView, MashTempAddView, \
-    FermentationAddView, BoilVolumeAddView, BeerImageAddView, ProjectAddView, UpdateBeerView, DeleteBeerView, \
+    FermentationAddView, BoilVolumeAddView, ProjectAddView, UpdateBeerView, DeleteBeerView, \
     UpdateIngredientsView, DeleteIngredientsView, UpdateMashtempView, DeleteMashtempView, UpdateFermentationView, \
-    DeleteFermentationView, UpdateBoilView, DeleteBoilView, UpdateImageView, DeleteImageView
+    DeleteFermentationView, UpdateBoilView, DeleteBoilView
 
 app_name = 'beerproject'
 
@@ -14,7 +14,6 @@ urlpatterns = [
     path('project/<int:pk>/', BeerProjectView.as_view(), name='project'),
     path('project/new/', ProjectAddView.as_view(), name='new_project'),
     path('project/new/beer/', BeerAddView.as_view(), name='new_project_beer'),
-    path('project/new/beer_image/', BeerImageAddView.as_view(), name='new_project_beer_image'),
     path('project/new/beer_ingredients/', IngredientsAddView.as_view(), name='new_project_beer_ingredients'),
     path('project/new/beer_mashtemp/', MashTempAddView.as_view(), name='new_project_beer_mashtemp'),
     path('project/new/beer_fermentation/', FermentationAddView.as_view(), name='new_project_beer_fermentation'),
@@ -29,6 +28,4 @@ urlpatterns = [
     path('project/delete/fermentation/<int:pk>/', DeleteFermentationView.as_view(), name='delete_fermentation'),
     path('project/update/boil/<int:pk>/', UpdateBoilView.as_view(), name='update_boil'),
     path('project/delete/boil/<int:pk>/', DeleteBoilView.as_view(), name='delete_boil'),
-    path('project/update/image/<int:pk>/', UpdateImageView.as_view(), name='update_image'),
-    path('project/delete/image/<int:pk>/', DeleteImageView.as_view(), name='delete_image'),
 ]

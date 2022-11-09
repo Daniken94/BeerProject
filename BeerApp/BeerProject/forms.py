@@ -3,7 +3,7 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout
 from django.contrib.auth.models import User
-from .models import BeerImage, Beer, Ingredients, MashTemp, Fermentation, BoilVolume
+from .models import Beer, Ingredients, MashTemp, Fermentation, BoilVolume
 from . import models
 
 
@@ -15,17 +15,6 @@ class AddBeerForm(ModelForm):
 
 
 # funkcja def __init__ służy do odfiltrowania pola select w formularzu po id usera
-class AddBeerImageForm(ModelForm):
-    def __init__(self, *args, **kwargs):
-        user = kwargs.pop("user")
-        super().__init__(*args, **kwargs)
-        self.fields['beer'].queryset = Beer.objects.filter(user=user)
-
-    class Meta:
-        model = BeerImage
-        fields = ["image", "beer"]
-
-
 class AddBeerIngredientsForm(ModelForm):
     def __init__(self, *args, **kwargs):
         user = kwargs.pop("user")
