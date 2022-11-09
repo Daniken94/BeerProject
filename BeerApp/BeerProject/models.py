@@ -45,7 +45,7 @@ class BoilVolume(models.Model):
     )
     value = models.IntegerField()
     unit = models.CharField(max_length=10, choices=boil_choices)
-    substance = models.CharField(max_length=120)
+    substance = models.CharField(max_length=120, default="Water")
     beer = models.ForeignKey("Beer", on_delete=models.CASCADE, blank=True)
 
     def __str__(self):
