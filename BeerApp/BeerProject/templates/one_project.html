@@ -55,7 +55,6 @@
         <tr>
           <th scope="col">BLG Start</th>
           <th scope="col">BLG Finish</th>
-          <th scope="col">ABV</th>
           <th scope="col">IBU</th>
           <th scope="col">EBC</th>
           <th scope="col">PH</th>
@@ -68,7 +67,6 @@
         <tr>
           <td>{{ beer.og }}</td>
           <td>{{ beer.fg }}</td>
-          <td>{{ beer.abv }}</td>
           <td>{{ beer.ibu }}</td>
           <td>{{ beer.ebc }}</td>
           <td>{{ beer.ph }}</td>
@@ -299,16 +297,16 @@
 {% endblock %}
 
 {% block aside %}
-{% for i in image %}
-    <img src="{{ i.image.url }}" class="card-img-top" alt="{{ i.image }}">
+{% for i in beer_image %}
+    <img src="{{ i.beer_image.url }}" class="card-img-top" alt="{{ i.beer_image }}">
 {% endfor %}
 <table class="table">
       <caption>Image actions</caption>
-    {% for i in image %}
+    {% for i in beer_image %}
       <tbody>
         <tr>
-          <td><a class="btn btn-sm btn-warning" href="{% url 'beerproject:update_image' i.id %}">Update</a></td>
-          <td><a class="btn btn-sm btn-danger" href="{% url 'beerproject:delete_image' i.id %}">Delete</a></td>
+          <td><a class="btn btn-sm btn-warning" href="{% url 'beerproject:update_project_beer' beer.id %}">Update</a></td>
+          <td><a class="btn btn-sm btn-danger" href="{% url 'beerproject:delete_project_beer' beer.id %}">Delete</a></td>
         </tr>
       </tbody>
     {% endfor %}

@@ -10,8 +10,8 @@ from . import models
 class AddBeerForm(ModelForm):
     class Meta:
         model = Beer
-        fields = ["brew", "name", "tagline", "description", "og", "fg", "abv", "ibu", "ebc", "ph",
-                  "beer_volume", "unit", "preparation_time"]
+        fields = ["brew", "name", "tagline", "description", "og", "fg", "ibu", "ebc", "ph",
+                  "beer_volume", "unit", "preparation_time", "beer_image"]
 
 
 # funkcja def __init__ służy do odfiltrowania pola select w formularzu po id usera

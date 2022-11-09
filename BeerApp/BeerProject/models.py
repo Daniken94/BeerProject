@@ -13,7 +13,6 @@ class Beer(models.Model):
     description = models.TextField(default="", blank=True)
     og = models.FloatField(blank=True, null=True, verbose_name="Gęstość początkowa BLG")
     fg = models.FloatField(blank=True, null=True, verbose_name="Gęstość końcowa BLG")
-    abv = models.FloatField(blank=True, null=True)
     ibu = models.IntegerField(blank=True, null=True)
     ebc = models.CharField(max_length=120, blank=True, null=True)
     ph = models.IntegerField(blank=True, null=True)
@@ -24,6 +23,7 @@ class Beer(models.Model):
     created_date = models.DateField(auto_now_add=True, verbose_name="created at", blank=True)
     updated_date = models.DateField(auto_now=True, verbose_name='last updated', blank=True)
     preparation_time = models.IntegerField(verbose_name="Full time for beer project")
+    beer_image = models.ImageField(upload_to="product_images", null=True, default="product_images/default.png")
     user = models.ForeignKey(User, on_delete=models.PROTECT)
 
     def save(self, *args, **kwargs):

@@ -20,9 +20,9 @@ class BeerProjectListView(View):
     def get(self, request):
         current_user = request.user.id
         beer = Beer.objects.filter(user_id=current_user).order_by('-brew')
-        image = BeerImage.objects.all()
+        # image = BeerImage.objects.all()
 
-        return render(request, "project_list.html", {'beer': beer, "image": image})
+        return render(request, "project_list.html", {'beer': beer})
 
 
 class BeerProjectView(View):
@@ -41,11 +41,12 @@ class BeerProjectView(View):
         mash_temp = MashTemp.objects.filter(beer_id=id)
         fermentation = Fermentation.objects.filter(beer_id=id)
         image = BeerImage.objects.filter(beer_id=id)
+        beer_image = Beer.objects.filter(id=id)
 
         return render(request, "one_project.html",
                       {'beer': beer, 'ing_malt': ingredients_malt, 'ing_hop': ingredients_hop,
                        'ing_yeast': ingredients_yeast, 'ing_other': ingredients_other, "boil": boil_volume,
-                       "fermentation": fermentation, "mash_temp": mash_temp, 'image': image})
+                       "fermentation": fermentation, "mash_temp": mash_temp, 'image': image, "beer_image": beer_image})
 
 class ProjectAddView(View):
     def get(self, request):
@@ -59,7 +60,7 @@ class BeerAddView(View):
         return render(request, "add_new_beer.html", {'form': form})
 
     def post(self, request):
-        form = AddBeerForm(request.POST)
+        form = AddBeerForm(request.POST, request.FILES)
         if form.is_valid():
             beer_user = form.save(commit=False)
             beer_user.user = request.user
@@ -151,7 +152,7 @@ class UpdateBeerView(View):
 
     def post(self, request, pk):
         beer = Beer.objects.get(id=pk)
-        form = AddBeerForm(request.POST, instance=beer)
+        form = AddBeerForm(request.POST, request.FILES, instance=beer)
         if form.is_valid():
             form.save()
             return redirect("beerproject:project_list")

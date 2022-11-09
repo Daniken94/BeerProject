@@ -22,13 +22,7 @@
 {% endblock %}
 
 {% block container %}
-<tr>
-    <td><h1>My Beer Projects</h1></td>
-    <td><a class="btn btn-sm btn-success" href="{% url 'beerproject:new_project_beer' %}">Add new beer project</a></td>
-    <td><a class="btn btn-sm btn-success" href="{% url 'beerproject:new_project' %}">Add new components</a></td>
-</tr>
 
-    <br>
 
 <style>
     .image {
@@ -37,15 +31,24 @@
     }
 </style>
 
-<table class="table table-sm">
-    {% for im in image %}
+
 <tr>
-    <td><strong>Warka nr {{ im.beer.brew }}</strong></td>
-    <td><h4>{{ im.beer.name }}</h4></td>
-    <td><img src="{{ im.image.url }}" class="image" alt="{{ im.image }}"></td>
-    <td><a class="btn btn-sm btn-info" href="{% url 'beerproject:project' im.beer.id %}">Details</a></td>
-    <td><a class="btn btn-sm btn-warning" href="{% url 'beerproject:update_project_beer' im.beer.id %}">Update</a></td>
-    <td><a class="btn btn-sm btn-danger" href="{% url 'beerproject:delete_project_beer' im.beer.id %}">Delete</a></td>
+    <td><h1>My Beer Projects</h1></td>
+    <td><a class="btn btn-sm btn-success" href="{% url 'beerproject:new_project_beer' %}">Add new beer project</a></td>
+    <td><a class="btn btn-sm btn-success" href="{% url 'beerproject:new_project' %}">Add new components</a></td>
+</tr>
+
+
+
+<table class="table table-sm">
+    {% for i in beer %}
+<tr>
+    <td><strong>Warka nr {{ i.brew }}</strong></td>
+    <td><h4>{{ i.name }}</h4></td>
+    <td><img src="{{ i.beer_image.url }}" class="image" alt="{{ i.beer_image }}"></td>
+    <td><a class="btn btn-sm btn-info" href="{% url 'beerproject:project' i.id %}">Details</a></td>
+    <td><a class="btn btn-sm btn-warning" href="{% url 'beerproject:update_project_beer' i.id %}">Update</a></td>
+    <td><a class="btn btn-sm btn-danger" href="{% url 'beerproject:delete_project_beer' i.id %}">Delete</a></td>
     <br>
     <br>
 </tr>

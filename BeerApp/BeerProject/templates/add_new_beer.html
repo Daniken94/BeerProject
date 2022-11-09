@@ -20,7 +20,7 @@
       <input type="submit" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4" value="Powrót" onClick="history.back();" />
 </div>
     <br>
-    <form action="" method="post">
+    <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
 
     {{ form|crispy }}
