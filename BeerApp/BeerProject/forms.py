@@ -58,4 +58,3 @@ class AddBeerFermentationForm(ModelForm):
     class Meta:
         model = Fermentation
         fields = ["value_temperature", "unit", "duration", "sequence", "beer"]
-
