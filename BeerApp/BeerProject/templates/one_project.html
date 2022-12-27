@@ -30,6 +30,12 @@
     <br>
 </tr>
     <br>
+    <strong>The project started in: </strong>
+    {{ beer.created_date }}
+    <br>
+    <strong>Last update in: </strong>
+    {{ beer.updated_date }}
+    <br>
     <strong>Brew: </strong>
     {{ beer.brew }}
     <br>
@@ -40,10 +46,11 @@
     {{ beer.tagline }}
     <br>
     <strong>First Brewed in: </strong>
-    {{ beer.created_date }}
+    {{ beer.brew_date }}
     <br>
-    <strong>Last update in: </strong>
-    {{ beer.updated_date }}
+    <strong>Bootled on: </strong>
+    {{ beer.bootled_date }}
+    <br>
     <br>
     <strong>Description: </strong>
     {{ beer.description }}

@@ -21,7 +21,9 @@ class Beer(models.Model):
     beer_volume = models.FloatField()
     unit = models.CharField(max_length=50, choices=BEER_CHOICES, default="litres")
     created_date = models.DateField(auto_now_add=True, verbose_name="created at", blank=True)
+    brew_date = models.DateField(verbose_name="brewed at", blank=True, null=True)
     updated_date = models.DateField(auto_now=True, verbose_name='last updated', blank=True)
+    bootled_date = models.DateField(verbose_name="bootled at", blank=True, null=True)
     preparation_time = models.IntegerField(verbose_name="Full time for beer project", blank=True, null=True)
     beer_image = models.ImageField(upload_to="product_images", null=True, default="product_images/default.png")
     user = models.ForeignKey(User, on_delete=models.PROTECT)
@@ -43,8 +45,9 @@ class BoilVolume(models.Model):
     boil_choices = (
         ('litres', 'litres'),
     )
+
     value = models.IntegerField()
-    unit = models.CharField(max_length=10, choices=boil_choices)
+    unit = models.CharField(max_length=10, choices=boil_choices, default="litres")
     substance = models.CharField(max_length=120, default="Water")
     beer = models.ForeignKey("Beer", on_delete=models.CASCADE, blank=True)
 
@@ -146,7 +149,7 @@ class Ingredients(models.Model):
     unit = models.CharField(max_length=50, choices=unit_choices)
     ebc = models.CharField(max_length=120, blank=True, null=True)
     purpose = models.CharField(max_length=50, choices=purpose_choices, blank=True, null=True)
-    aac = models.IntegerField(blank=True, verbose_name="Alfa acid", null=True)
+    aac = models.FloatField(blank=True, verbose_name="Alfa acid", null=True)
     country = models.CharField(max_length=120, blank=True)
     sequence = models.IntegerField(choices=sequence_choices)
     sequence_unit = models.CharField(default="", max_length=120, verbose_name="W której minucie dodać składnik")
