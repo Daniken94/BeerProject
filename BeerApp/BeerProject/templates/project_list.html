@@ -1,61 +1,154 @@
-<!DOCTYPE html>
+{% load static %}
+
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Beer Project</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'styles/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}">
+    {% block scripts %}
+        <script src="{% static 'scripts/bootstrap.min.js' %}" async defer></script>
+    {% endblock %}
 </head>
 <body>
+<body class="d-flex flex-column min-vh-100">
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #996800;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'punkapi:homepage' %}">
+            <img src="{% static 'images/logo.png' %}" class="logo" alt="Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'punkapi:homepage' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'punkapi:beers' %}">Beers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'punkapi:beers_type' %}">Beer Types</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'beerproject:project_list' %}">Projects</a>
+                </li>
+                {% endif %}
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Calculator
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'calculator:calc_alc' %}">Alcohol</a></li>
+                        <li><a class="dropdown-item" href="{% url 'calculator:calc_ibu' %}">IBU</a></li>
+                        <li><a class="dropdown-item" href="{% url 'calculator:calc_ebc' %}">EBC</a></li>
+                        <li><a class="dropdown-item" href="{% url 'calculator:calc_aut' %}">Brewhouse performance</a></li>
+                    </ul>
+                </li>
+                  {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'punkapi:homepage' %}">Logged in as {{ user.username }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'user:register' %}">Create Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                {% endif %}
+            </ul>
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-dark" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            {% block container %}
+
+
+            <style>
+                .image {
+                    width: 80px;
+                    height: 80px;
+                }
+            </style>
+            
+            
+            <tr>
+                <td><h1>My Beer Projects</h1></td>
+                <td><a class="btn btn-sm btn-success" href="{% url 'beerproject:new_project_beer' %}">Add new beer project</a></td>
+                <td><a class="btn btn-sm btn-success" href="{% url 'beerproject:new_project' %}">Add new components</a></td>
+            </tr>
+            <br>
+            <br>
+              <div class="table-responsive-md">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Brew nr </th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Style</th>
+                    <th scope="col">Label</th>
+                    <th scope="col">Details</th>
+                    <th scope="col">Update</th>
+                    <th scope="col">Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for i in beer %}
+                  <tr>
+                    <th scope="row"></th>
+                    <td><strong>{{ i.brew }}</strong></td>
+                    <td><strong>{{ i.name }}</strong></td>
+                    <td><strong>{{ i.tagline }}</strong></td>
+                    <td><img src="{{ i.beer_image.url }}" class="image" alt="{{ i.beer_image }}"></td>
+                    <td><a class="btn btn-sm btn-info" href="{% url 'beerproject:project' i.id %}">Details</a></td>
+                    <td><a class="btn btn-sm btn-warning" href="{% url 'beerproject:update_project_beer' i.id %}">Update</a></td>
+                    <td><a class="btn btn-sm btn-danger" href="{% url 'beerproject:delete_project_beer' i.id %}">Delete</a></td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            {% endblock %}
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="mt-auto text-center text-white" style="background-color: #996800;">
+  <!-- Grid container -->
+  <div class="container p-4"></div>
+  <!-- Grid container -->
+
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    © 2022 Copyright:
+    <a class="text-white" href="https://github.com/Daniken94/">Daniken94</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
+
 
 </body>
 </html>
-
-{% extends 'base.html' %}
-{% load static %}
-
-{% block title %}
-    Beer Project
-{% endblock %}
-
-{% block scripts %}
-    {{ block.super }}
-    <script src="{% static 'scripts/main.js' %}" async defer></script>
-{% endblock %}
-
-{% block container %}
-
-
-<style>
-    .image {
-        width: 50px;
-        height: 50px;
-    }
-</style>
-
-
-<tr>
-    <td><h1>My Beer Projects</h1></td>
-    <td><a class="btn btn-sm btn-success" href="{% url 'beerproject:new_project_beer' %}">Add new beer project</a></td>
-    <td><a class="btn btn-sm btn-success" href="{% url 'beerproject:new_project' %}">Add new components</a></td>
-</tr>
-
-
-
-<table class="table table-sm">
-    {% for i in beer %}
-<tr>
-    <td><strong>Warka nr {{ i.brew }}</strong></td>
-    <td><h4>{{ i.name }}</h4></td>
-    <td><img src="{{ i.beer_image.url }}" class="image" alt="{{ i.beer_image }}"></td>
-    <td><a class="btn btn-sm btn-info" href="{% url 'beerproject:project' i.id %}">Details</a></td>
-    <td><a class="btn btn-sm btn-warning" href="{% url 'beerproject:update_project_beer' i.id %}">Update</a></td>
-    <td><a class="btn btn-sm btn-danger" href="{% url 'beerproject:delete_project_beer' i.id %}">Delete</a></td>
-    <br>
-    <br>
-</tr>
-    {% endfor %}
-</table>
-
-{% endblock %}
-
-{% block aside %}
-{% endblock %}

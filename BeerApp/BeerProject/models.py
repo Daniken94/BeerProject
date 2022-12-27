@@ -152,7 +152,7 @@ class Ingredients(models.Model):
     aac = models.FloatField(blank=True, verbose_name="Alfa acid", null=True)
     country = models.CharField(max_length=120, blank=True)
     sequence = models.IntegerField(choices=sequence_choices)
-    sequence_unit = models.CharField(default="", max_length=120, verbose_name="W której minucie dodać składnik")
+    sequence_unit = models.CharField(default="1", max_length=120, verbose_name="W której minucie dodać składnik")
     beer = models.ForeignKey("Beer", on_delete=models.CASCADE, blank=True)
 
     class Meta:
