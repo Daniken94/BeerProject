@@ -11,3 +11,4 @@ django-crispy-forms==1.13.0
 requests
 postgres==4.0
 psycopg2==2.9.5
+django-random-image-from-folder-0.0.3

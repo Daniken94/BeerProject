@@ -7,7 +7,7 @@ class Beer(models.Model):
         ('litres', 'litres'),
     )
 
-    brew = models.IntegerField()
+    brew = models.IntegerField(help_text="Brew number")
     name = models.CharField(max_length=120)
     tagline = models.CharField(max_length=120, verbose_name="Beer style")
     description = models.TextField(default="", blank=True)
@@ -21,9 +21,9 @@ class Beer(models.Model):
     beer_volume = models.FloatField()
     unit = models.CharField(max_length=50, choices=BEER_CHOICES, default="litres")
     created_date = models.DateField(auto_now_add=True, verbose_name="created at", blank=True)
-    brew_date = models.DateField(verbose_name="brewed at", blank=True, null=True)
+    brew_date = models.DateField(verbose_name="brewed at", blank=True, null=True, help_text="np. 01.01.2023")
     updated_date = models.DateField(auto_now=True, verbose_name='last updated', blank=True)
-    bootled_date = models.DateField(verbose_name="bootled at", blank=True, null=True)
+    bootled_date = models.DateField(verbose_name="bootled at", blank=True, null=True, help_text="np. 01.01.2023")
     preparation_time = models.IntegerField(verbose_name="Full time for beer project", blank=True, null=True)
     beer_image = models.ImageField(upload_to="product_images", null=True, default="product_images/default.png")
     user = models.ForeignKey(User, on_delete=models.PROTECT)
