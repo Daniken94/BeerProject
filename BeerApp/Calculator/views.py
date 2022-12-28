@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import View
 from decimal import Decimal
-from .forms import AlcCalcForm, AutCalcForm, IBUCalcForm
+from .forms import AlcCalcForm, AutCalcForm, IBUCalcForm, WaterCalcForm
 
 
 
@@ -66,3 +66,19 @@ class IBUCalcView(View):
 class EBCCalcView(View):
     def get(self, request):
         return render(request, "ebc_calc.html")
+
+
+
+class WaterCalcView(View):
+    def get(self, request):
+        form = WaterCalcForm()
+        return render(request, "water_calc.html", {'form': form})
+
+    def post(self, request):
+        form = WaterCalcForm(request.POST)
+        if form.is_valid():
+            malt = form.cleaned_data["malt"]
+            water = 3.5 * float(malt)
+            result = f"You need {water} litres of water for this malt."
+            return render(request, "water_calc.html", {'form': form, "result": result})
+        return render(request, "water_calc.html", {'form': form})

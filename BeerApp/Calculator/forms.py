@@ -16,3 +16,6 @@ class IBUCalcForm(forms.Form):
     acids = forms.FloatField(label="% alfa acid in hops")
     utilization = forms.FloatField(initial='30', label="% hops utilization", help_text="Typical utilization is 30%")
     value_beer = forms.FloatField(label="Number of liters of finished beer")
+
+class WaterCalcForm(forms.Form):
+    malt = forms.FloatField(label=" The weight (kilograms) of the malt for beer project")
