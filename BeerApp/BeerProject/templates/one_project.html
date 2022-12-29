@@ -87,35 +87,6 @@
 
     <h2>Brewing</h2>
     <br>
-
-
-    <strong>Water boil volume: </strong>
-<table class="table">
-      <caption>Malt Parameters</caption>
-      <thead>
-        <tr>
-          <th scope="col">Value</th>
-          <th scope="col">Unit</th>
-          <th scope="col">Substance</th>
-        </tr>
-      </thead>
-    {% for i in boil %}
-      <tbody>
-        <tr>
-          <td>{{ i.value }}</td>
-          <td>{{ i.unit }}</td>
-          <td>{{ i.substance }}</td>
-          <td><a class="btn btn-sm btn-warning" href="{% url 'beerproject:update_boil' i.id %}">Update</a></td>
-          <td><a class="btn btn-sm btn-danger" href="{% url 'beerproject:delete_boil' i.id %}">Delete</a></td>
-        </tr>
-      </tbody>
-    {% endfor %}
-    </table>
-
-
-    <br>
-    <br>
-    <br>
     <h4>Ingredients: </h4> <br>
     <strong>Malt: </strong> <br>
 <table class="table">
@@ -150,6 +121,7 @@
     {% endfor %}
     </table>
 
+<br>
 
 <strong>Hops: </strong>
 <table class="table">
@@ -185,6 +157,21 @@
         </tr>
       </tbody>
     {% endfor %}
+    <tbody>
+      <tr>
+        <td><strong>Full time for boiling:</strong></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>{{ beer.boiling_time }} min</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
     </table>
 <br>
 
@@ -213,6 +200,17 @@
         </tr>
       </tbody>
     {% endfor %}
+    <tbody>
+      <tr>
+        <td><strong>Full time for boiling:</strong></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>{{ beer.boiling_time }} min</td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
     </table>
 
 <br>
@@ -248,6 +246,29 @@
 
 <h4>Method: </h4> <br>
 
+<strong>Water mash volume: </strong>
+<table class="table">
+      <caption>Malt Parameters</caption>
+      <thead>
+        <tr>
+          <th scope="col">Value</th>
+          <th scope="col">Unit</th>
+          <th scope="col">Substance</th>
+        </tr>
+      </thead>
+    {% for i in boil %}
+      <tbody>
+        <tr>
+          <td>{{ i.value }}</td>
+          <td>{{ i.unit }}</td>
+          <td>{{ i.substance }}</td>
+          <td><a class="btn btn-sm btn-warning" href="{% url 'beerproject:update_boil' i.id %}">Update</a></td>
+          <td><a class="btn btn-sm btn-danger" href="{% url 'beerproject:delete_boil' i.id %}">Delete</a></td>
+        </tr>
+      </tbody>
+    {% endfor %}
+    </table>
+    <br>
 <strong>Mash Temp: </strong> <br>
 <table class="table">
       <caption>Mash Parameters</caption>
@@ -271,10 +292,19 @@
           <td><a class="btn btn-sm btn-danger" href="{% url 'beerproject:delete_mashtemp' i.id %}">Delete</a></td>
         </tr>
       </tbody>
-    {% endfor %}
+      {% endfor %}
+      <tbody>
+        <tr>
+          <td>Full time for mash</td>
+          <td></td>
+          <td></td>
+          <td>{{ beer.preparation_time }} min </td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
 </table>
-
-
+<br>
 
 <strong>Fermentation: </strong> <br>
 <table class="table">

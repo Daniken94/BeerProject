@@ -24,7 +24,8 @@ class Beer(models.Model):
     brew_date = models.DateField(verbose_name="brewed at", blank=True, null=True, help_text="np. 01.01.2023")
     updated_date = models.DateField(auto_now=True, verbose_name='last updated', blank=True)
     bootled_date = models.DateField(verbose_name="bootled at", blank=True, null=True, help_text="np. 01.01.2023")
-    preparation_time = models.IntegerField(verbose_name="Full time for beer project", blank=True, null=True)
+    preparation_time = models.IntegerField(verbose_name="Full time for mash up", blank=True, null=True)
+    boiling_time = models.IntegerField(verbose_name="Full time for boiling", blank=True, null=True)
     beer_image = models.ImageField(upload_to="product_images", null=True, default="product_images/default.png")
     user = models.ForeignKey(User, on_delete=models.PROTECT)
 

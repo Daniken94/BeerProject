@@ -11,7 +11,7 @@ class AddBeerForm(ModelForm):
     class Meta:
         model = Beer
         fields = ["brew", "brew_date", "name", "tagline", "description", "og", "fg", "ibu", "ebc", "ph",
-                  "beer_volume", "unit", "preparation_time", "bootled_date", "beer_image"]
+                  "beer_volume", "unit", "preparation_time", "boiling_time" , "bootled_date", "beer_image"]
 
 
 # funkcja def __init__ służy do odfiltrowania pola select w formularzu po id usera
