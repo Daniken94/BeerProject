@@ -78,7 +78,7 @@ class WaterCalcView(View):
         form = WaterCalcForm(request.POST)
         if form.is_valid():
             malt = form.cleaned_data["malt"]
-            water = 3.5 * float(malt)
+            water = round(3.5 * float(malt), 2)
             result = f"You need {water} litres of water for this malt."
             return render(request, "water_calc.html", {'form': form, "result": result})
         return render(request, "water_calc.html", {'form': form})

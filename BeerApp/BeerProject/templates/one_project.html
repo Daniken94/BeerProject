@@ -185,6 +185,7 @@
           <th scope="col">Unit</th>
           <th scope="col">Sequence</th>
           <th scope="col">Sequence Time</th>
+          <th scope="col">Description</th>
         </tr>
       </thead>
     {% for i in ing_other %}
@@ -195,6 +196,7 @@
           <td>{{ i.unit }}</td>
           <td>{{ i.sequence }}</td>
           <td>{{ i.sequence_unit }}</td>
+          <td>{{ i.description }}</td>
           <td><a class="btn btn-sm btn-warning" href="{% url 'beerproject:update_ingredient' i.id %}">Update</a></td>
           <td><a class="btn btn-sm btn-danger" href="{% url 'beerproject:delete_ingredient' i.id %}">Delete</a></td>
         </tr>
